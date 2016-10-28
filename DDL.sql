@@ -23,7 +23,7 @@ CREATE TABLE CharacterCampaignParticipation (
 	KickedStatus BOOLEAN DEFAULT 0,
 	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID),
 	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
-	PRIMARY KEY(CampaignID, CampaignID)
+	PRIMARY KEY(CharacterID, CampaignID)
 );
 
 CREATE TABLE Characters (
