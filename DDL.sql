@@ -114,12 +114,12 @@ CREATE TABLE OwnedSkills (
 
 CREATE TABLE Songs (
 	SongName VARCHAR(20) NOT NULL,
-	Force VARCHAR(9) NOT NULL,
+	SongForce VARCHAR(9) NOT NULL,
 	EssenceReq INT NOT NULL,
 	Duration VARCHAR(25) NOT NULL,
 	ShortDescription VARCHAR(50) NOT NULL,
 	LongDescription VARCHAR(3000) NOT NULL,
-	PRIMARY KEY(SongName, Force)
+	PRIMARY KEY(SongName, SongForce)
 );
 
 CREATE TABLE OwnedSongs (
@@ -130,5 +130,5 @@ CREATE TABLE OwnedSongs (
 	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
 	FOREIGN KEY(SongName) REFERENCES Songs(SongName),
 	FOREIGN KEY(SongForce) REFERENCES Songs(Force),
-	PRIMARY KEY(CharacterID, SongName, Force)
+	PRIMARY KEY(CharacterID, SongName, SongForce)
 );
