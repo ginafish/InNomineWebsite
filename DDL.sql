@@ -12,7 +12,7 @@ CREATE TABLE Campaigns (
 	IngameTime VARCHAR(50),
 	GameMasterUsername VARCHAR(12) NOT NULL,
 	PRIMARY KEY(CampaignID),
-	FOREIGN KEY(GameMasterUsername) REFERENCES Users(Username)
+	FOREIGN KEY(GameMasterUsername) REFERENCES Users(Username) ON UPDATE CASCADE
 );
 
 CREATE TABLE CharacterCampaignParticipation (
@@ -21,8 +21,8 @@ CREATE TABLE CharacterCampaignParticipation (
 	CurrentMindHits INT NOT NULL,
 	CurrentSoulHits INT NOT NULL,
 	KickedStatus BOOLEAN DEFAULT 0,
-	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID),
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID) ON UPDATE CASCADE,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID, CampaignID)
 );
 
@@ -33,6 +33,7 @@ CREATE TABLE Characters (
 	Discord VARCHAR(15),
 	Superior VARCHAR(20) NOT NULL,
 	ChoirBandMembership VARCHAR(1) NOT NULL,
+	ChoirBandName VARCHAR(20) NOT NULL,
 	Essence INT NOT NULL,
 	OwnerUsername VARCHAR(12) NOT NULL,
 	PRIMARY KEY(CharacterID)
@@ -40,28 +41,30 @@ CREATE TABLE Characters (
 
 CREATE TABLE CorporealStats (
 	CharacterID INT NOT NULL,
+	Corporeal INT NOT NULL,
 	Strength INT NOT NULL,
 	Agility INT NOT NULL,
-	Corporeal INT NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID)
 );
 
 CREATE TABLE CelestialStats (
 	CharacterID INT NOT NULL,
+	Celestial INT NOT NULL,
 	Will INT NOT NULL,
 	Perception INT NOT NULL,
 	SoulHits INT NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID)
 );
 
-CREATE TABLE EtheralStats (
+CREATE TABLE EtherealStats (
 	CharacterID INT NOT NULL,
+	Ethereal INT NOT NULL,
 	Intelligence INT NOT NULL,
 	Prec INT NOT NULL,
 	SoulHits INT NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID)
 );
 
@@ -71,7 +74,7 @@ CREATE TABLE Vessels (
 	VesselName VARCHAR(15) NOT NULL,
 	Role VARCHAR(20),
 	HitPoints INT NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
 	PRIMARY KEY(VesselID)
 );
 
@@ -79,8 +82,8 @@ CREATE TABLE ActiveVessels (
 	CampaignID INT NOT NULL,
 	VesselID INT NOT NULL,
 	CurrentHitPoints INT NOT NULL,
-	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID),
-	FOREIGN KEY(VesselID) REFERENCES Vessels(VesselID),
+	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID) ON UPDATE CASCADE,
+	FOREIGN KEY(VesselID) REFERENCES Vessels(VesselID) ON UPDATE CASCADE,
 	PRIMARY KEY(CampaignID, VesselID)
 );
 
@@ -91,7 +94,7 @@ CREATE TABLE Items (
 	ItemDescription VARCHAR(200),
 	CharacterID INT NOT NULL,
 	PRIMARY KEY(ItemID),
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID)
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE
 );
 
 CREATE TABLE Skills (
@@ -107,8 +110,8 @@ CREATE TABLE OwnedSkills (
 	RanksTaken INT NOT NULL,
 	CharacterID INT NOT NULL,
 	SkillName VARCHAR(16) NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
-	FOREIGN KEY(SkillName) REFERENCES Skills(SkillName),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
+	FOREIGN KEY(SkillName) REFERENCES Skills(SkillName) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID, SkillName)
 );
 
@@ -127,8 +130,8 @@ CREATE TABLE OwnedSongs (
 	SongName VARCHAR(20) NOT NULL,
 	SongForce VARCHAR(9) NOT NULL,
 	RanksTaken INT NOT NULL,
-	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
-	FOREIGN KEY(SongName) REFERENCES Songs(SongName),
-	FOREIGN KEY(SongForce) REFERENCES Songs(Force),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID) ON UPDATE CASCADE,
+	FOREIGN KEY(SongName) REFERENCES Songs(SongName) ON UPDATE CASCADE,
+	FOREIGN KEY(SongForce) REFERENCES Songs(Force) ON UPDATE CASCADE,
 	PRIMARY KEY(CharacterID, SongName, SongForce)
 );
