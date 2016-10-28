@@ -1,7 +1,8 @@
 CREATE TABLE Users (
 	Username VARCHAR(12) NOT NULL,
 	Password VARCHAR(18) NOT NULL,
-	Email VARCHAR(30) NOT NULL
+	Email VARCHAR(30) NOT NULL,
+	PRIMARY KEY (Username)
 );
 
 CREATE TABLE Campaigns (
@@ -9,7 +10,9 @@ CREATE TABLE Campaigns (
 	CampaignPassword VARCHAR(12),
 	IngameDate VARCHAR(50),
 	IngameTime VARCHAR(50),
-	GameMasterUsername VARCHAR(12) NOT NULL
+	GameMasterUsername VARCHAR(12) NOT NULL,
+	PRIMARY KEY(CampaignID),
+	FOREIGN KEY(GameMasterUsername) REFERENCES Users(Username)
 );
 
 CREATE TABLE CharacterCampaignParticipation (
@@ -17,7 +20,10 @@ CREATE TABLE CharacterCampaignParticipation (
 	CharacterID INT NOT NULL,
 	CurrentMindHits INT NOT NULL,
 	CurrentSoulHits INT NOT NULL,
-	KickedStatus BOOLEAN
+	KickedStatus BOOLEAN DEFAULT 0,
+	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	PRIMARY KEY(CampaignID, CampaignID)
 );
 
 CREATE TABLE Characters (
@@ -28,34 +34,35 @@ CREATE TABLE Characters (
 	Superior VARCHAR(20) NOT NULL,
 	ChoirBandMembership VARCHAR(1) NOT NULL,
 	Essence INT NOT NULL,
-	OwnerUsername VARCHAR(12) NOT NULL
+	OwnerUsername VARCHAR(12) NOT NULL,
+	PRIMARY KEY(CharacterID)
 );
 
 CREATE TABLE CorporealStats (
 	CharacterID INT NOT NULL,
 	Strength INT NOT NULL,
 	Agility INT NOT NULL,
-	Corporeal INT NOT NULL
+	Corporeal INT NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	PRIMARY KEY(CharacterID)
 );
 
 CREATE TABLE CelestialStats (
 	CharacterID INT NOT NULL,
 	Will INT NOT NULL,
 	Perception INT NOT NULL,
-	SoulHits INT NOT NULL
+	SoulHits INT NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	PRIMARY KEY(CharacterID)
 );
 
 CREATE TABLE EtheralStats (
 	CharacterID INT NOT NULL,
 	Intelligence INT NOT NULL,
 	Prec INT NOT NULL,
-	SoulHits INT NOT NULL
-);
-
-CREATE TABLE ActiveVessels (
-	CampaignID INT NOT NULL,
-	VesselID INT NOT NULL,
-	CurrentHitPoints INT NOT NULL
+	SoulHits INT NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	PRIMARY KEY(CharacterID)
 );
 
 CREATE TABLE Vessels (
@@ -63,14 +70,28 @@ CREATE TABLE Vessels (
 	CharacterID INT NOT NULL,
 	VesselName VARCHAR(15) NOT NULL,
 	Role VARCHAR(20),
-	HitPoints INT NOT NULL
+	HitPoints INT NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	PRIMARY KEY(VesselID)
+);
+
+CREATE TABLE ActiveVessels (
+	CampaignID INT NOT NULL,
+	VesselID INT NOT NULL,
+	CurrentHitPoints INT NOT NULL,
+	FOREIGN KEY(CampaignID) REFERENCES Campaigns(CampaignID),
+	FOREIGN KEY(VesselID) REFERENCES Vessels(VesselID),
+	PRIMARY KEY(CampaignID, VesselID)
 );
 
 CREATE TABLE Items (
-	ItemID INT NOT NULL,
+	ItemID INT NOT NULL AUTO_INCREMENT,
 	ItemName VARCHAR(30) NOT NULL,
 	Damage INT,
-	ItemDescription VARCHAR(200)
+	ItemDescription VARCHAR(200),
+	CharacterID INT NOT NULL,
+	PRIMARY KEY(ItemID),
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID)
 );
 
 CREATE TABLE Skills (
@@ -78,13 +99,17 @@ CREATE TABLE Skills (
 	BaseSkill VARCHAR(4) NOT NULL,
 	DefaultCheck INT NOT NULL,
 	ShortDescription VARCHAR(50) NOT NULL,
-	LongDescription VARCHAR(3000) NOT  NULL
+	LongDescription VARCHAR(3000) NOT  NULL,
+	PRIMARY KEY(SkillName)
 );
 
 CREATE TABLE OwnedSkills (
 	RanksTaken INT NOT NULL,
 	CharacterID INT NOT NULL,
-	SkillName VARCHAR(16) NOT NULL
+	SkillName VARCHAR(16) NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(SkillName) REFERENCES Skills(SkillName),
+	PRIMARY KEY(CharacterID, SkillName)
 );
 
 CREATE TABLE Songs (
@@ -93,5 +118,17 @@ CREATE TABLE Songs (
 	EssenceReq INT NOT NULL,
 	Duration VARCHAR(25) NOT NULL,
 	ShortDescription VARCHAR(50) NOT NULL,
-	LongDescription VARCHAR(3000) NOT NULL
+	LongDescription VARCHAR(3000) NOT NULL,
+	PRIMARY KEY(SongName, Force)
+);
+
+CREATE TABLE OwnedSongs (
+	CharacterID INT NOT NULL,
+	SongName VARCHAR(20) NOT NULL,
+	Force VARCHAR(9) NOT NULL,
+	RanksTaken INT NOT NULL,
+	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
+	FOREIGN KEY(SongName) REFERENCES Songs(SongName),
+	FOREIGN KEY(Force) REFERENCES Songs(Force),
+	PRIMARY KEY(CharacterID, SongName, Force)
 );
