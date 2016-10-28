@@ -125,10 +125,10 @@ CREATE TABLE Songs (
 CREATE TABLE OwnedSongs (
 	CharacterID INT NOT NULL,
 	SongName VARCHAR(20) NOT NULL,
-	Force VARCHAR(9) NOT NULL,
+	SongForce VARCHAR(9) NOT NULL,
 	RanksTaken INT NOT NULL,
 	FOREIGN KEY(CharacterID) REFERENCES Characters(CharacterID),
 	FOREIGN KEY(SongName) REFERENCES Songs(SongName),
-	FOREIGN KEY(Force) REFERENCES Songs(Force),
+	FOREIGN KEY(SongForce) REFERENCES Songs(Force),
 	PRIMARY KEY(CharacterID, SongName, Force)
 );
