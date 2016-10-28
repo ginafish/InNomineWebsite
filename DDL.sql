@@ -1,6 +1,6 @@
 CREATE TABLE Users (
 	Username VARCHAR(12) NOT NULL,
-	Password VARCHAR(18) NOT NULL,
+	UserPassword VARCHAR(18) NOT NULL,
 	Email VARCHAR(30) NOT NULL,
 	PRIMARY KEY (Username)
 );
