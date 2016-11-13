@@ -1,7 +1,8 @@
-SELECT Campaigns.CampaignName, Campaigns.CampaignBlurb, Campaigns.GameMasterUsername, Characters.CharacterName 
-FROM CharacterCampaignParticipation LEFT JOIN Campaigns JOIN Characters
-	ON (CharacterCampaignParticipation.CampaignID = Campaigns.CampaignID)
-	AND (CharacterCampaignParticipation.CharacterID = Characters.CharacterID)
-	AS CampChars
-WHERE CampChars.GameMasterUsername = $user
-	OR CampChars.Username = $user
+SELECT camps.CampaignName, camps.CampaignBlurb, camps.GameMasterUsername, charac.CharacterName 
+FROM Campaigns camps
+LEFT JOIN CharacterCampaignParticipation ccp
+	ON camps.CampaignID = ccp.CampaignID)
+JOIN Characters charac
+	ON (ccp.CharacterID = charac.CharacterID)
+WHERE camps.GameMasterUsername = $user
+	OR charac.Username = $user
