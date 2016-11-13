@@ -1,8 +1,14 @@
-SELECT camps.CampaignName, camps.CampaignBlurb, camps.GameMasterUsername, charac.CharacterName 
+--Campaigns GM of:
+SELECT CampaignName, CampaignBlurb, GameMasterUsername
+FROM Campaigns
+WHERE GameMasterUsername = $user
+
+
+--Campaigns that have character in:
+SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername,charac.CharacterName 
 FROM Campaigns camps
 LEFT JOIN CharacterCampaignParticipation ccp
-	ON camps.CampaignID = ccp.CampaignID)
+	ON camps.CampaignID = ccp.CampaignID
 JOIN Characters charac
-	ON (ccp.CharacterID = charac.CharacterID)
-WHERE camps.GameMasterUsername = $user
-	OR charac.Username = $user
+	ON ccp.CharacterID = charac.CharacterID
+WHERE charac.OwnerUsername = $user
