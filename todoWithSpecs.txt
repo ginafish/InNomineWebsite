@@ -8,6 +8,20 @@ Someday someday
 
 
 
+ToDo:
+  * Login page login SQL stuff (change db so we don't store plain text passwords)
+(done) Get list of campaigns a user is involved in
+  * Joining campaign validation?
+  * GM view of characters in current campaign view
+  * GM updating in game date/time
+  * GM updating campaign info
+(prelim) GM kicking players
+  * Trigger for for BEFORE UPDATE of max players that GM can't set it less than the number of current players
+  * Campaign creation INSERT
+(prelim) Character creation
+  * Player's campaign view of their character sheet and stuffs
+
+
 
 Specs:
 
@@ -20,7 +34,7 @@ Homepage/Dashboard
     - List of campaigns user is in/involved in
     - Button to create or join campaign
     SQL:
-        (done) Get list of campaigns user is in
+        - Get list of campaigns user is in
         - Join campaign validation & insert (insert will be done through character creation into campaign)
 
 Campaign View - GM
@@ -48,7 +62,7 @@ Create Campaign
 Create Character
     - Makes a character for the $user with the $campaignID of the campaign that they are joining
     SQL:
-        (prelim) $characterName, $race, $bandchoir, $superior, $corporealforces, $etherealforces, $celestialforces, $str, $agi, $int, $precis, $will, $percep, $skills, $songs, $vesselname, $vesselranks, $vesselrole, $vroleranks
+        - $characterName, $race, $bandchoir, $superior, $corporealforces, $etherealforces, $celestialforces, $str, $agi, $int, $precis, $will, $percep, $skills, $songs, $vesselname, $vesselranks, $vesselrole, $vroleranks
 
 Campaign View - Player
     - Player's view of their character sheet while in game
