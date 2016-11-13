@@ -1,0 +1,61 @@
+Housekeeping:
+  * Campaigns table needs CampaignName and CampaignBlurb fields
+  * Manage Campaign page have number of players next to the player kick list thing
+
+Someday someday
+  * Make notes cache
+  * Let players level up
+
+
+
+
+Specs:
+
+Login Page
+    - Landing page
+    SQL:
+        - Needs login validation
+
+Homepage/Dashboard
+    - List of campaigns user is in/involved in
+    - Button to create or join campaign
+    SQL:
+        (prelim) Get list of campaigns user is in
+        - Join campaign validation & insert
+
+Campaign View - GM
+    - View of the campaign info that the GM needs
+    SQL:
+        - Get list of characters that are in the campaign
+            * Get their hp, skills
+        - Be able to set in game date/time
+        - (future? done through js?) Send players notifications and timer warnings
+
+Manage Campaign
+    - Lets GM set campaign name, campaign password, blurb, character type restriction, max players, and kick players
+    - Character type restriction only applies to new characters joining the campaign, not characters already in the campaign
+    - Need to restrict GMs from setting Maximum players less than the number of current players 
+    SQL:
+        - Update campaign name, campaign password, blurb, new character type joining restriction, max players, players' kicked status
+        - Make trigger for BEFORE UPDATE of max players that GM can't set it less than the number of current players
+
+Create Campaign
+    - Makes a campaign with the $user as the GM
+    SQL:
+        - Creates campaign with $campaignName, $campaignPassword, $campaignBlurb, $playerTypeRestriction, $maxPlayers, and GM of $usersName
+
+Create Character
+    - Makes a character for the $user with the $campaignID of the campaign that they are joining
+    SQL:
+        - $characterName, $race, $bandchoir, $superior, $corporealforces, $etherealforces, $celestialforces, $str, $agi, $int, $precis, $will, $percep, $skills, $songs, $vesselname, $vesselranks, $vesselrole, $vroleranks
+
+Campaign View - Player
+    - Player's view of their character sheet while in game
+    - Character notes are temporary note taking spot for player
+    SQL:
+        - Has character data of $charactername, $superior, $str, $agi, $int, $precis, $will, $percep, $essence
+        - Skill list
+        - Song list
+        - Vessel list with vessel infos
+        - Health points
+        - Item list, with ability to add items
