@@ -1,5 +1,5 @@
 Housekeeping:
-  * Campaigns table needs CampaignName and CampaignBlurb fields
+  (prelim) Campaigns table needs CampaignName and CampaignBlurb fields
   * Manage Campaign page have number of players next to the player kick list thing
 
 Someday someday
@@ -21,7 +21,7 @@ Homepage/Dashboard
     - Button to create or join campaign
     SQL:
         (prelim) Get list of campaigns user is in
-        - Join campaign validation & insert
+        - Join campaign validation & insert (insert will be done through character creation into campaign)
 
 Campaign View - GM
     - View of the campaign info that the GM needs
@@ -47,7 +47,7 @@ Create Campaign
 Create Character
     - Makes a character for the $user with the $campaignID of the campaign that they are joining
     SQL:
-        - $characterName, $race, $bandchoir, $superior, $corporealforces, $etherealforces, $celestialforces, $str, $agi, $int, $precis, $will, $percep, $skills, $songs, $vesselname, $vesselranks, $vesselrole, $vroleranks
+        (prelim) $characterName, $race, $bandchoir, $superior, $corporealforces, $etherealforces, $celestialforces, $str, $agi, $int, $precis, $will, $percep, $skills, $songs, $vesselname, $vesselranks, $vesselrole, $vroleranks
 
 Campaign View - Player
     - Player's view of their character sheet while in game
