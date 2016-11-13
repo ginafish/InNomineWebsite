@@ -5,7 +5,7 @@ WHERE GameMasterUsername = $user
 
 
 --Campaigns that have character in:
-SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername,charac.CharacterName 
+SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus
 FROM Campaigns camps
 LEFT JOIN CharacterCampaignParticipation ccp
 	ON camps.CampaignID = ccp.CampaignID

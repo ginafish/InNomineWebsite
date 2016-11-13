@@ -20,7 +20,7 @@ Homepage/Dashboard
     - List of campaigns user is in/involved in
     - Button to create or join campaign
     SQL:
-        (prelim) Get list of campaigns user is in
+        (done) Get list of campaigns user is in
         - Join campaign validation & insert (insert will be done through character creation into campaign)
 
 Campaign View - GM
