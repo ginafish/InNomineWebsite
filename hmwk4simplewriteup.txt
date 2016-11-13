@@ -1,2 +1,0 @@
-One design decision that we had decided on was that we would not allow users to ever delete things, but only allow them to “disable” things, which would simply involve changing a Boolean in the database and denying access to data based on that.
-Because of this, we only want cascade updates on our foreign keys, in order to make sure that referential integrity was enforced.
