@@ -6,5 +6,5 @@ SELECT CharacterName, CharacterID FROM Characters WHERE CharacterID IN
 SELECT CampaignName, IngameDate, IngameTime FROM Campaigns WHERE CampaignID=$CampaignID
 
 -- Character Skills Query:
-
+SELECT Skills.SkillName, OwnedSkills.RanksTaken FROM Skills JOIN OwnedSkills ON Skills.SkillName=OwnedSkills.SkillName WHERE OwnedSkills.CharacterID=2
 
