@@ -7,19 +7,22 @@ Someday someday
   * Let players level up
 
 
+(done) = done, checked finished
+(prelim) = written, need to test
+(start) = started, not yet finished
 
 ToDo:
   * Login page login SQL stuff (change db so we don't store plain text passwords)
 (done) Get list of campaigns a user is involved in
   * Joining campaign validation?
-  * GM view of characters in current campaign view
+(start) GM view of characters in current campaign view
   * GM updating in game date/time
   * GM updating campaign info
 (prelim) GM kicking players
   * Trigger for for BEFORE UPDATE of max players that GM can't set it less than the number of current players
   * Campaign creation INSERT
 (prelim) Character creation
-  * Player's campaign view of their character sheet and stuffs
+(prelim) Player's campaign view of their character sheet and stuffs
 
 
 
