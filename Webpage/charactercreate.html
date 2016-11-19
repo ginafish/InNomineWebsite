@@ -11,22 +11,56 @@
 	
 		<title>InNomine Character Creation</title>
 	
+		<script type="application/javascript">
+			function updateRace(cbMembership){
+				var raceElem = document.getElementById("race");
+				$(raceElem).each(function(){			/*Something really effed up is going on with the iteration here... it should be iterating through the children (the option elements) but it's not... it's like the selection element sets its value based on the option that is selected and doesn't actually treat them as child elements, sigh.  Might be better to go about this a different way....*/
+					var curRace = this.value;
+					if(!curRace.includes(cbMembership)){
+						this.style.display = "none";
+						console.log("Disabled " + curRace);
+					}
+					else{
+						this.style.display = "block";
+						console.log("Enabled " + curRace);
+					}
+				});
+			}
+		</script>
 	</head>
 	<body>
 		<div class="container-fluid">
-			<div class="row">
-				
-			</div>
 			
-			<form action="charcreate.php" class="form-horizontal">
-				<div class="form-group">
-					<label class="control-label col-sm-3" for="charName">Character Name</label>
+			<form action="charcreate.php" class="form-inline">
+				<div class="row">
+					
 					<div class="col-sm-4">
-						<input type="text" class="form-control" id="charname">
+						<div class="form-group">
+						<label class="control-label col-sm-4" for="charName">Character Name</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="charname" required="required">
+						</div>
+						</div>
 					</div>
+					<div class="col-sm-4">
+						<div class="form-group">
+							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
+								<option selected="selected" disabled="disabled">Choose band or choir</option>
+								<option value="Band">Band</option>
+								<option value="Choir">Choir</option>
+							</select>
+							
+							<select class="form-control" name="race" id="race" required="required">
+								<option selected="selected" disabled="disabled">Race</option>
+								<option value="Choir - Seraphim">Seraphim</option>
+								<option value="Choir - Cherium">Cherium</option>
+								<option value="Choir - Malikem">Malikem</option>
+								<option value="Band - Succubus">Incubus</option>
+							</select>
+						</div>
+					</div>
+				
 				</div>
-				
-				
 			</form>
 			
 		</div>
