@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.6.4
--- https://www.phpmyadmin.net/
+-- version 4.3.8
+-- http://www.phpmyadmin.net
 --
--- Host: mysql.eecs.oregonstate.edu
--- Generation Time: Oct 27, 2016 at 08:50 PM
--- Server version: 5.5.37-MariaDB-wsrep
--- PHP Version: 5.6.27
+-- Host: localhost
+-- Generation Time: Nov 19, 2016 at 12:52 PM
+-- Server version: 5.5.51-38.2
+-- PHP Version: 5.4.31
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -14,10 +14,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8 */;
 
 --
--- Database: `cs340_bomberm`
+-- Database: `turnip_inNomine`
 --
 
 -- --------------------------------------------------------
@@ -26,9 +26,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `Users`
 --
 
-CREATE TABLE `Users` (
+CREATE TABLE IF NOT EXISTS `Users` (
   `Username` varchar(12) NOT NULL,
-  `UserPassword` varchar(18) NOT NULL,
+  `UserPassword` char(128) CHARACTER SET latin1 COLLATE latin1_bin NOT NULL,
   `Email` varchar(30) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 

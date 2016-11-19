@@ -21,7 +21,7 @@ ELSE
 SET skillStatModify = (SELECT Perception FROM CelestialStats WHERE CharacterID = characterID);
 END IF;
 
-SET effectSkl = (SELECT DefaultCheck FROM Skills WHERE SkillName = skllNm);
+SET effectSkl = (SELECT RanksTaken FROM OwnedSkills WHERE SkillName = skllNm AND CharacterID=characterID);
 SET effectSkl = (effectSkl + skillStatModify);
 
 RETURN (effectSkl);
