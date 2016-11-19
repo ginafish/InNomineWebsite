@@ -34,6 +34,12 @@
 			
 			<form action="charcreate.php" class="form-horizontal">
 				<div class="row">
+					<div class="col-md-12">
+						<h1>Character Sheet</h1>
+					</div>
+				</div>
+				
+				<div class="row">
 					
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
@@ -42,16 +48,18 @@
 						</div>
 					</div>
 					
-					<div class="form-group form-group-lg">
-						<div class="col-md-3">
+					<div class="col-md-3">
+						<div class="form-group form-group-lg">
 							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
 								<option selected="selected" disabled="disabled" value="prompt">Choose band or choir</option>
 								<option value="Band">Band</option>
 								<option value="Choir">Choir</option>
 							</select>
 						</div>
+					</div>
 					
-						<div class="col-md-3">
+					<div class="col-md-3">
+						<div class="form-group form-group-lg">
 							<select class="form-control" name="race" id="race" required="required">
 								<option>Choose band or choir first.</option>
 								
@@ -62,8 +70,10 @@
 								<option value="Band - Succubus">Incubus</option>
 							</select>
 						</div>
+					</div>
 						
-						<div class="col-md-2">
+					<div class="col-md-3">
+						<div class="form-group form-group-lg">
 							<select class="form-control" name="superior" id="superior" required="required">
 								<option selected="selected" disabled="disabled" value="prompt">Superior</option>
 								<option value="Choir - Superior">Choir Superior</option>
@@ -78,11 +88,85 @@
 				<div class="row">
 				
 					<div class="col-md-4">
-						<label class="control-label" for="corpforc">Corporeal Forces</label>
-						<input type="range">
+						<div class="form-group">
+							<label class="control-label" for="corppoints">Corporeal Force</label>
+							<input class="form-control" type="range" name="corppoints" min="0" max="">
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="ethpoints">Ethereal Force</label>
+							<input class="form-control" type="range" name="ethpoints" min="0" max="">
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="celpoints">Celestial Force</label>
+							<input class="form-control" type="range" name="celespoints" min="0" max="">
+						</div>
 					</div>
 					
 				</div>
+				
+				<!-- Stat values -->
+				<div class="row">
+					
+					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label">Strength</label>
+							<input class="form-control">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Agility</label>
+							<input class="form-control">
+						</div>
+					</div>
+					
+					<div class="col-md-4">
+					</div>
+					
+					<div class="col-md-4">
+					</div>
+					
+				</div>
+				
+				<!-- Skills and Songs -->
+				<div class="row">
+					
+					<!-- For this, I'm guessing that we'll have a textbox for searching, add to add to the box below, so going to make that a multiselect drop box-->
+					<div class="col-md-5">
+						<div class="form-group">
+							<label class="control-label sr-only" for="addskill">Add Skill</label>
+							<input type="text" class="form-control" name="addskill">
+							<button onclick="addSkillToLi()" name="btnAddSkill">Add</button>
+						</div>
+						<div class="form-group">
+							<label class="control-label sr-only" for="skilllist">Skills:</label>
+							<select class="form-control" name="skilllist" id="skilllist">
+								<option selected="selected" disabled="disabled" value="prompt">Skill</option>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-2" id="space">
+					</div>
+					<div class="col-md-5">
+						<div class="form-group">
+							<label class="control-label sr-only" for="addsong">Add Song</label>
+							<input type="text" class="form-control" name="addsong">
+							<button onclick="addSongToLi()" name="btnAddSong">Add</button>
+						</div>
+						<div class="form-group">
+							<label class="control-label sr-only" for="songlist">Songs:</label>
+							<select class="form-control" name="songlist" id="songlist">
+								<option selected="selected" disabled="disabled" value="prompt">Song</option>
+							</select>
+						</div>
+					</div>
+					
+				</div>
+				
 			</form>
 			
 		</div>
