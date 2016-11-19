@@ -1,18 +1,69 @@
 <html>
 <head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" type="text/css" href="home.css">
 	<link rel="icon" href="favicon.png">
+	
+	<title>Tblspace - InNomine Login</title>
+	
+	<style>
+		#loginerrormsg {
+			display: none;
+		}
+	</style>
+	
 </head>
 <body>
-	<img src="" />
-	<h1>TableSpace In Nomine Login (dummy for banner) </h1>
+	<div class = "container-fluid">
+		<div class="row">
+			<div class="col-md-4">
+				<span class="text-center">
+					<img src="" id="homepagebanner" />
+					<h1>TableSpace In Nomine Login (dummy for banner) </h1>
+				</span>
+				
+				
+				<span class="text-center" id="login">
+					<form action="login.php" method="post" class="form-horizontal">
+					<div class="form-group">
+						<label for="username" class="control-label col-sm-2">Username:</label>
+						<div class="col-sm-10">
+							<input type="text" class="form-control" name="username" id="username">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="password" class="control-label col-sm-2">Password:</label>
+						<div class="col-sm-10">
+							<input type="password" class="form-control" name="password" id="pwd">
+						</div>
+					</div>
+					<div class="checkbox">
+				 		<label><input type="checkbox"> Remember me</label>
+					</div>
+					<button type="submit" value="Login" class="btn btn-default">Submit</button>
+					</form>
+				</span>	
+				<span class="alert alert-warning" id="loginerrormsg">
+				</span>
+		
+			</div>
+			
+			<div class="col-md-4">
+				<img class="img-responsive" src="innomfeather.png" alt="burning feather" />
+			</div>
+		</div>
+		
+		
+		
+		
+		
+	</div>
 	
-	<span id="login">
-	<form action="login.php" method = "post">
-		Username: <input type="text" name="username"><br>
-		Password: <input type="password" name="password"></br>
-		<input type="submit" value="Login">
-	</form>
-	</span>
+	
 </body>
 </html>
