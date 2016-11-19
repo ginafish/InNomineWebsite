@@ -13,17 +13,18 @@
 	
 		<script type="application/javascript">
 			function updateRace(cbMembership){
-				var raceElem = document.getElementById("race");
-				$(raceElem).each(function(){			/*Something really effed up is going on with the iteration here... it should be iterating through the children (the option elements) but it's not... it's like the selection element sets its value based on the option that is selected and doesn't actually treat them as child elements, sigh.  Might be better to go about this a different way....*/
-					var curRace = this.value;
-					if(!curRace.includes(cbMembership)){
-						this.style.display = "none";
-						console.log("Disabled " + curRace);
-					}
-					else{
-						this.style.display = "block";
-						console.log("Enabled " + curRace);
-					}
+				var raceElem = document.getElementById("race"); 
+				/*var raceOptions = raceElem.children();*/
+        		$(raceElem).each(function(){      /*Something really effed up is going on with the iteration here... it should be iterating through the children (the option elements) but it's not... it's like the selection element sets its value based on the option that is selected and doesn't actually treat them as child elements, sigh.  Might be better to go about this a different way....*/ 
+					var curRace = this.value; 
+          			if(!curRace.includes(cbMembership)){ 
+            			$(this).attr("disabled", "disabled");
+            			console.log("Disabled " + curRace); 
+					} 
+          			else{ 
+						$(this).attr("disabled", "block");
+						console.log("Enabled " + curRace); 
+          			} 
 				});
 			}
 		</script>
@@ -45,18 +46,22 @@
 					<div class="col-sm-4">
 						<div class="form-group">
 							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
-								<option selected="selected" disabled="disabled">Choose band or choir</option>
+								<option selected="selected" disabled="disabled" value="prompt">Choose band or choir</option>
 								<option value="Band">Band</option>
 								<option value="Choir">Choir</option>
 							</select>
 							
 							<select class="form-control" name="race" id="race" required="required">
+								<option>Choose band or choir first.</option>
+								
 								<option selected="selected" disabled="disabled">Race</option>
 								<option value="Choir - Seraphim">Seraphim</option>
 								<option value="Choir - Cherium">Cherium</option>
 								<option value="Choir - Malikem">Malikem</option>
 								<option value="Band - Succubus">Incubus</option>
 							</select>
+							
+							
 						</div>
 					</div>
 				
