@@ -165,6 +165,45 @@
 					
 				</div>
 				
+				<!-- Vessels -->
+				<div class="row">
+					<div class="col-md-11">
+						<fieldset class="form-inline">
+							<div class="form-group col-md-5">
+								<label class="control-label" for="vesselName">Vessel Name</label>
+								<input type="text" class="form-control" name="vesselName">
+							</div>
+							<div class="form-group col-md-6">
+								<label class="control-label" for="vesselRanks">Vessel Ranks</label>
+								<input type="number" class="form-control" name="vesselRanks">
+							</div>
+							<span class="row">
+								<div class="form-group col-md-5">
+									<label class="control-label" for="vesselRole">Vessel Role</label>
+									<input type="text" class="form-control" name="vesselRole">
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="roleRanks">Role Ranks</label>
+									<input type="number" class="form-control" name="roleRanks">
+								</div>
+							</span>
+							<button onclick="addVesToLi()" name="btnAddVes">Add Vessel</button>
+						</fieldset>
+						<div class="form-group">
+							<label class="control-label sr-only" for="veslist">Vessels:</label>
+							<select class="form-control" name="veslist" id="veslist" multiple>
+								<option selected="selected" disabled="disabled" value="prompt">Vessel</option>
+							</select>
+							<button onclick="remoVesFrLi()" name="btnRemovVes">Remove</button>
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<button type="submit" value="CreateCharacter" class="btn btn-default">Finish and create character</button>
+					</div>
+				</div>
+				
+				
 			</form>
 			
 		</div>
