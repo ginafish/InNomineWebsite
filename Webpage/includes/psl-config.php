@@ -3,8 +3,8 @@
  * These are the database login details
  */  
 define("HOST", "localhost");     // The host you want to connect to.
-define("USER", "turnip_marie");    // The database username. 
-define("PASSWORD", "R3ndrid17");    // The database password. 
+define("USER", "turnip_user");    // The database username. 
+define("PASSWORD", "6tTYzLCL8g3q");    // The database password. 
 define("DATABASE", "turnip_inNomine");    // The database name.
  
 define("CAN_REGISTER", "any");
