@@ -13,19 +13,16 @@
 	
 		<script type="application/javascript">
 			function updateRace(cbMembership){
-				var raceElem = document.getElementById("race"); 
+				var raceOps = document.getElementById("race").getElementsByTagName("option"); 
 				/*var raceOptions = raceElem.children();*/
-        		$(raceElem).each(function(){      /*Something really effed up is going on with the iteration here... it should be iterating through the children (the option elements) but it's not... it's like the selection element sets its value based on the option that is selected and doesn't actually treat them as child elements, sigh.  Might be better to go about this a different way....*/ 
-					var curRace = this.value; 
-          			if(!curRace.includes(cbMembership)){ 
-            			$(this).attr("disabled", "disabled");
-            			console.log("Disabled " + curRace); 
-					} 
-          			else{ 
-						$(this).attr("disabled", "block");
-						console.log("Enabled " + curRace); 
-          			} 
-				});
+        		for (var i = 0; i < raceOps.length; i++){
+					var curVal = raceOps[i].value;
+					(curVal.includes(cbMembership))
+					? raceOps[i].hidden = false
+					: raceOps[i].hidden = true;
+					console.log(raceOps[i].value + " " + cbMembership);
+				}
+				document.getElementById("race").selectedIndex = 0;
 			}
 		</script>
 	</head>
@@ -51,7 +48,7 @@
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
 							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
-								<option selected="selected" disabled="disabled" value="prompt">Choose band or choir</option>
+								<option selected="selected" disabled="disabled" value="prompt" hidden>Choose band or choir</option>
 								<option value="Band">Band</option>
 								<option value="Choir">Choir</option>
 							</select>
@@ -61,9 +58,7 @@
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
 							<select class="form-control" name="race" id="race" required="required">
-								<option>Choose band or choir first.</option>
-								
-								<option selected="selected" disabled="disabled">Race</option>
+								<option selected="selected" disabled="disabled" hidden>Choose race</option>
 								<option value="Choir - Seraphim">Seraphim</option>
 								<option value="Choir - Cherium">Cherium</option>
 								<option value="Choir - Malikem">Malikem</option>
@@ -131,6 +126,7 @@
 					</div>
 					
 				</div>
+				<br /> <br />
 				
 				<!-- Skills and Songs -->
 				<div class="row">
@@ -144,9 +140,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="skilllist">Skills:</label>
-							<select class="form-control" name="skilllist" id="skilllist">
+							<select class="form-control" name="skilllist" id="skilllist" multiple>
 								<option selected="selected" disabled="disabled" value="prompt">Skill</option>
 							</select>
+							<button onclick="remoSkillFrLi()" name="btnRemovSkill">Remove</button>
 						</div>
 					</div>
 					<div class="col-md-2" id="space">
@@ -159,9 +156,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="songlist">Songs:</label>
-							<select class="form-control" name="songlist" id="songlist">
+							<select class="form-control" name="songlist" id="songlist" multiple>
 								<option selected="selected" disabled="disabled" value="prompt">Song</option>
 							</select>
+							<button onclick="remoSongFrLi()" name="btnRemovSong">Remove</button>
 						</div>
 					</div>
 					
