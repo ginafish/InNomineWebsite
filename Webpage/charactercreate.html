@@ -13,19 +13,16 @@
 	
 		<script type="application/javascript">
 			function updateRace(cbMembership){
-				var raceElem = document.getElementById("race"); 
+				var raceOps = document.getElementById("race").getElementsByTagName("option"); 
 				/*var raceOptions = raceElem.children();*/
-        		$(raceElem).each(function(){      /*Something really effed up is going on with the iteration here... it should be iterating through the children (the option elements) but it's not... it's like the selection element sets its value based on the option that is selected and doesn't actually treat them as child elements, sigh.  Might be better to go about this a different way....*/ 
-					var curRace = this.value; 
-          			if(!curRace.includes(cbMembership)){ 
-            			$(this).attr("disabled", "disabled");
-            			console.log("Disabled " + curRace); 
-					} 
-          			else{ 
-						$(this).attr("disabled", "block");
-						console.log("Enabled " + curRace); 
-          			} 
-				});
+        		for (var i = 0; i < raceOps.length; i++){
+					var curVal = raceOps[i].value;
+					(curVal.includes(cbMembership))
+					? raceOps[i].hidden = false
+					: raceOps[i].hidden = true;
+					console.log(raceOps[i].value + " " + cbMembership);
+				}
+				document.getElementById("race").selectedIndex = 0;
 			}
 		</script>
 	</head>
@@ -51,7 +48,7 @@
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
 							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
-								<option selected="selected" disabled="disabled" value="prompt">Choose band or choir</option>
+								<option selected="selected" disabled="disabled" value="prompt" hidden>Choose band or choir</option>
 								<option value="Band">Band</option>
 								<option value="Choir">Choir</option>
 							</select>
@@ -61,9 +58,7 @@
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
 							<select class="form-control" name="race" id="race" required="required">
-								<option>Choose band or choir first.</option>
-								
-								<option selected="selected" disabled="disabled">Race</option>
+								<option selected="selected" disabled="disabled" hidden>Choose race</option>
 								<option value="Choir - Seraphim">Seraphim</option>
 								<option value="Choir - Cherium">Cherium</option>
 								<option value="Choir - Malikem">Malikem</option>
@@ -115,22 +110,39 @@
 					
 					<div class="col-md-4">
 						<div class="form-group">
-							<label class="control-label">Strength</label>
-							<input class="form-control">
+							<label class="control-label" for="str">Strength</label>
+							<input class="form-control" type="number" name="str">
 						</div>
 						<div class="form-group">
-							<label class="control-label">Agility</label>
-							<input class="form-control">
+							<label class="control-label" for="agi">Agility</label>
+							<input class="form-control" type="number" name="agi">
 						</div>
 					</div>
 					
 					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="int">Intelligence</label>
+							<input class="form-control" type="number" name="int">
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="prec">Precision</label>
+							<input class="form-control" type="number" name="prec">
+						</div>
 					</div>
 					
 					<div class="col-md-4">
+						<div class="form-group">
+							<label class="control-label" for="will">Will</label>
+							<input class="form-control" type="number" name="will">
+						</div>
+						<div class="form-group">
+							<label class="control-label" for="perc">Perception</label>
+							<input class="form-control" type="number" name="perc">
+						</div>
 					</div>
 					
 				</div>
+				<br /> <br />
 				
 				<!-- Skills and Songs -->
 				<div class="row">
@@ -144,9 +156,10 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="skilllist">Skills:</label>
-							<select class="form-control" name="skilllist" id="skilllist">
+							<select class="form-control" name="skilllist" id="skilllist" multiple>
 								<option selected="selected" disabled="disabled" value="prompt">Skill</option>
 							</select>
+							<button onclick="remoSkillFrLi()" name="btnRemovSkill">Remove</button>
 						</div>
 					</div>
 					<div class="col-md-2" id="space">
@@ -159,13 +172,53 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label sr-only" for="songlist">Songs:</label>
-							<select class="form-control" name="songlist" id="songlist">
+							<select class="form-control" name="songlist" id="songlist" multiple>
 								<option selected="selected" disabled="disabled" value="prompt">Song</option>
 							</select>
+							<button onclick="remoSongFrLi()" name="btnRemovSong">Remove</button>
 						</div>
 					</div>
 					
 				</div>
+				
+				<!-- Vessels -->
+				<div class="row">
+					<div class="col-md-11">
+						<fieldset class="form-inline">
+							<div class="form-group col-md-5">
+								<label class="control-label" for="vesselName">Vessel Name</label>
+								<input type="text" class="form-control" name="vesselName">
+							</div>
+							<div class="form-group col-md-6">
+								<label class="control-label" for="vesselRanks">Vessel Ranks</label>
+								<input type="number" class="form-control" name="vesselRanks">
+							</div>
+							<span class="row">
+								<div class="form-group col-md-5">
+									<label class="control-label" for="vesselRole">Vessel Role</label>
+									<input type="text" class="form-control" name="vesselRole">
+								</div>
+								<div class="form-group col-md-6">
+									<label class="control-label" for="roleRanks">Role Ranks</label>
+									<input type="number" class="form-control" name="roleRanks">
+								</div>
+							</span>
+							<button onclick="addVesToLi()" name="btnAddVes">Add Vessel</button>
+						</fieldset>
+						<div class="form-group">
+							<label class="control-label sr-only" for="veslist">Vessels:</label>
+							<select class="form-control" name="veslist" id="veslist" multiple>
+								<option selected="selected" disabled="disabled" value="prompt">Vessel</option>
+							</select>
+							<button onclick="remoVesFrLi()" name="btnRemovVes">Remove</button>
+						</div>
+					</div>
+					
+					<div class="col-md-1">
+						<button type="submit" value="CreateCharacter" class="btn btn-default">Finish and create character</button>
+					</div>
+				</div>
+				
 				
 			</form>
 			
