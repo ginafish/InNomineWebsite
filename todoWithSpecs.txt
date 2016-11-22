@@ -20,7 +20,7 @@ done = testing
 
 Pages:
 (p - script) Login Page
-(p - lyt) Homepage/Dashboard
+(ns) Homepage/Dashboard
 (d - lyt) GM Campaign View
 (d - lyt) Manage Campaign
 (ns) Create Campaign [we can just slightly modify manage campaign page for this]
