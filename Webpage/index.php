@@ -71,13 +71,13 @@ if (login_check($mysqli) == true) {
 						</div>
 						<div class="checkbox">
 							<fieldset class="form-inline">
-								<label for="rememberme" class="control-label">Remember me</label>
-								<input type="checkbox" name="rememberme" class="form-control">
+								<!-- <label for="rememberme" class="control-label">Remember me</label> 
+								<input type="checkbox" name="rememberme" class="form-control"> -->
 							</fieldset>
 						</div>
-						<button type="Login" value="Login" class="btn btn-default" onclick="formhash(this.form, this.form.password);">Submit</button>
+						<input type="button" value="Login" onclick="formhash(this.form, this.form.password);"></input>
 					</form>
-					<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button>
+					<!--<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button> -->
 				</span>	
 				<span class="alert alert-warning" id="loginerrormsg">
 				</span>
