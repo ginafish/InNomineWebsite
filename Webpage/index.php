@@ -41,7 +41,7 @@ if (login_check($mysqli) == true) {
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">
-				<img class="img-responsive media-right" src="img/innomfeather.png" alt="burning feather" />
+				<img class="img-responsive media-right" src="img/innomfeather.jpg" alt="burning feather" />
 			</div>
 			<div class="col-md-8">
 				<span class="text-center">
@@ -71,13 +71,13 @@ if (login_check($mysqli) == true) {
 						</div>
 						<div class="checkbox">
 							<fieldset class="form-inline">
-								<label for="rememberme" class="control-label">Remember me</label>
-								<input type="checkbox" name="rememberme" class="form-control">
+								<!-- <label for="rememberme" class="control-label">Remember me</label> 
+								<input type="checkbox" name="rememberme" class="form-control"> -->
 							</fieldset>
 						</div>
-						<button type="Login" value="Login" class="btn btn-default" onclick="formhash(this.form, this.form.password);">Submit</button>
+						<input type="button" value="Login" onclick="formhash(this.form, this.form.password);"></input>
 					</form>
-					<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button>
+					<!--<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button> -->
 				</span>	
 				<span class="alert alert-warning" id="loginerrormsg">
 				</span>
@@ -106,6 +106,6 @@ else {
 </body>
 </html>
 <?php
-include_once 'scripts/psl-config.php';   // As functions.php is not included
+include_once 'includes/psl-config.php';   // As functions.php is not included
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 ?>
