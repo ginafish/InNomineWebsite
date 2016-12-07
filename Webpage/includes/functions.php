@@ -39,7 +39,7 @@ function login($un, $password, $mysqli) {
         $stmt->store_result();
  
         // get variables from result.
-        $stmt->bind_result($user_id, $username, $db_password);
+        $stmt->bind_result($username, $db_password);
         $stmt->fetch();
  
         if ($stmt->num_rows == 1) {
