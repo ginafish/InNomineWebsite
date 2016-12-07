@@ -59,13 +59,10 @@ function login($un, $password, $mysqli) {
                     // Get the user-agent string of the user.
                     $user_browser = $_SERVER['HTTP_USER_AGENT'];
                     // XSS protection as we might print this value
-                    $user_id = preg_replace("/[^0-9]+/", "", $user_id);
-                    $_SESSION['user_id'] = $user_id;
+                    $un = preg_replace("/[^0-9]+/", "", $un);
+                    $_SESSION['un'] = $un;
                     // XSS protection as we might print this value
-                    $username = preg_replace("/[^a-zA-Z0-9_\-]+/", 
-                                                                "", 
-                                                                $username);
-                    $_SESSION['username'] = $username;
+                    $_SESSION['username'] = $un;
                     $_SESSION['login_string'] = hash('sha512', 
                               $db_password . $user_browser);
                     // Login successful.
@@ -75,7 +72,7 @@ function login($un, $password, $mysqli) {
                     // We record this attempt in the database
                     $now = time();
                     $mysqli->query("INSERT INTO loginAttempts(Username, time)
-                                    VALUES ('$user_id', '$now')");
+                                    VALUES ('$un', '$now')");
                     return false;
                 }
             }
@@ -118,7 +115,7 @@ function login_check($mysqli) {
                         $_SESSION['username'], 
                         $_SESSION['login_string'])) {
  
-        $user_id = $_SESSION['user_id'];
+        $un = $_SESSION['user_id'];
         $login_string = $_SESSION['login_string'];
         $username = $_SESSION['username'];
  
