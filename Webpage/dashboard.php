@@ -31,7 +31,7 @@ if(login_check($mysqli) == true) {
 						<div class="col-md-6">
 							<?php
 							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
-							$result = msqli_query($credentials, $query);
+							$result = mysqli_query($credentials, $query);
 							$numPCamps = mysqli_fetch_row($result);
 							
 							echo "<div class='row'> <div class='col-md-6'>";
@@ -52,7 +52,7 @@ if(login_check($mysqli) == true) {
 						<div class="col-md-6">
 							<?php
 							$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = $user";
-							$result = msqli_query($credentials, $query);
+							$result = mysqli_query($credentials, $query);
 							$numQCamps = mysqli_fetch_row($result);
 						
 							echo "<div class='row'> <div class='col-md-6'>";
