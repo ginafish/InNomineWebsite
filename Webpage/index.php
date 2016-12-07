@@ -106,6 +106,6 @@ else {
 </body>
 </html>
 <?php
-include_once 'scripts/psl-config.php';   // As functions.php is not included
+include_once 'includes/psl-config.php';   // As functions.php is not included
 $mysqli = new mysqli(HOST, USER, PASSWORD, DATABASE);
 ?>
