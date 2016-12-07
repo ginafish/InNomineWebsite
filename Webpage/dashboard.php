@@ -2,21 +2,12 @@
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
+#need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
 sec_session_start(); 
 
 if(login_check($mysqli) == true) {
-        
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
-?>
-
-
-<!-- Paste this into the if statement once done -->
-
-
-
-<!DOCTYPE html>
+        $user = htmlentities($_SESSION['username']);
+	echo '<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -41,29 +32,52 @@ if(login_check($mysqli) == true) {
 							<?php
 							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
 							$result = msqli_query($credentials, $query);
-							$numPCamps = mysqli_num_fields($result);
+							$numPCamps = mysqli_fetch_row($result);
+							
+							echo "<div class='row'> <div class='col-md-6'>";
+							foreach ($numQCamps as $curRow){
+								echo "<span width=100>";
+								echo "$curRow";
+								echo "</span>";
+							}
+						
+							mysqli_free_result($result);
 							?>
 						</div>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<h3>GM Campaigns</h3>
-					<div class="col-md-6">
-						<?php
-						$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = $user";
-						$result = msqli_query($credentials, $query);
-						$numQCamps = ;
+					<div class="row">
+						<div class="col-md-6">
+							<?php
+							$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = $user";
+							$result = msqli_query($credentials, $query);
+							$numQCamps = mysqli_fetch_row($result);
 						
-						echo "<div class='row'> <div class='col-md-6'>";
-						for($i = 0; $i < $numQCamps; $i++){
-							echo "<span width=100>";
-							
-						}
+							echo "<div class='row'> <div class='col-md-6'>";
+							foreach ($numQCamps as $curRow){
+								echo "<span width=100>";
+								echo "$curRow";
+								echo "</span>";
+							}
 						
-						?>
+							mysqli_free_result($result);
+							?>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
     </body>
-</html>
+</html>'
+} else { 
+        echo 'You are not authorized to access this page, please login.';
+}
+?>
+
+
+<!-- Paste this into the if statement once done -->
+
+
+
