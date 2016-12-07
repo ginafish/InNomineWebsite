@@ -41,7 +41,7 @@ if (login_check($mysqli) == true) {
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">
-				<img class="img-responsive media-right" src="img/innomfeather.png" alt="burning feather" />
+				<img class="img-responsive media-right" src="img/innomfeather.jpg" alt="burning feather" />
 			</div>
 			<div class="col-md-8">
 				<span class="text-center">
