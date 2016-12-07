@@ -13,6 +13,7 @@ function formhash(form, password) {
  
     // Finally submit the form. 
     form.submit();
+    console.log("submitted: "+form+" "+password);
 }
  
 function regformhash(form, uid, email, password, conf) {

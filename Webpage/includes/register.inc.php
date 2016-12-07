@@ -80,7 +80,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                 header('Location: ../error.php?err=Registration failure: INSERT');
             }
         }
-        header('Location: ./register_success.php');
+        header('Location: ./index.php');
     }
 }
 ?>
