@@ -83,7 +83,7 @@ function login($un, $password, $mysqli) {
             return false;
         }
     } else {
-		echo("something went horribly wrong in the sql statement");
+		echo("Something went horribly wrong in the sql statement");
 	}
 }
 
@@ -125,7 +125,7 @@ function login_check($mysqli) {
  
         if ($stmt = $mysqli->prepare("SELECT UserPassword FROM Users WHERE Username = ? LIMIT 1")) {
             // Bind "$user_id" to parameter. 
-            $stmt->bind_param('i', $username);
+            $stmt->bind_param('s', $un);
             $stmt->execute();   // Execute the prepared query.
             $stmt->store_result();
  
