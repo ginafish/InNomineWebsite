@@ -7,7 +7,17 @@ sec_session_start();
 
 if(login_check($mysqli) == true) {
         $user = htmlentities($_SESSION['username']);
-	echo '<!DOCTYPE html>
+} else { 
+        echo 'You are not authorized to access this page, please login.';
+}
+?>
+
+
+<!-- Paste this into the if statement once done -->
+
+
+
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -38,6 +48,8 @@ if(login_check($mysqli) == true) {
 							foreach ($numQCamps as $curRow){
 								echo "<span width=100>";
 								echo "$curRow";
+								#parse so that we can get campName and campID
+								echo "<button type='button' id='btnGoToDash'>Open</button>"
 								echo "</span>";
 							}
 						
@@ -70,14 +82,4 @@ if(login_check($mysqli) == true) {
 			</div>
 		</div>
     </body>
-</html>'
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
-?>
-
-
-<!-- Paste this into the if statement once done -->
-
-
-
+</html>
