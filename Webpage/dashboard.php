@@ -4,12 +4,6 @@ include_once 'includes/functions.php';
 
 #need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
 sec_session_start(); 
-
-if(login_check($mysqli) == true) {
-        $user = htmlentities($_SESSION['username']);
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
 ?>
 
 
@@ -28,7 +22,11 @@ if(login_check($mysqli) == true) {
 		<link rel="stylesheet" href="styles/main.css" />
     </head>
     <body>
-        <div class="container">
+        <?php  
+    	if(login_check($mysqli) == true) : 
+        $user = htmlentities($_SESSION['username']); 
+  		?>
+		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
 					<h1>Dashboard</h1>
@@ -81,5 +79,10 @@ if(login_check($mysqli) == true) {
 				</div>
 			</div>
 		</div>
+		<?php else : ?> 
+            <p> 
+                <span class="error">You have created discord in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
+            </p> 
+  <?php endif; ?> 
     </body>
 </html>
