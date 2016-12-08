@@ -162,6 +162,8 @@ function login_check($mysqli) {
 		echo($_SESSION['login_string']);
 		echo(session_id());
 		echo($_SESSION);
+		echo("<br />");
+		phpinfo();
         return false;
     }
 }
