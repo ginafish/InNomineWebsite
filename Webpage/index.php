@@ -47,8 +47,7 @@ if (login_check($mysqli) == true) {
 			</div>
 			<div class="col-md-8">
 				<span class="text-center">
-					<img src="" id="homepagebanner" />
-					<h1>TableSpace In Nomine Login (dummy for banner) </h1>
+					<img src="img/Banner.png" id="homepagebanner" alt="banner"/>
 				</span>
 				
 				
@@ -77,7 +76,7 @@ if (login_check($mysqli) == true) {
 								<input type="checkbox" name="rememberme" class="form-control"> -->
 							</fieldset>
 						</div>
-						<input type="button" value="Login" onclick="formhash(this.form, this.form.password);"></input>
+						<input type="button" value="Login" onclick="formhash(this.form.username, this.form.password, form);"></input>
 					</form>
 					<!--<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button> -->
 				</span>	

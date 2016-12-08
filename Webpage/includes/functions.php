@@ -30,7 +30,7 @@ function sec_session_start() {
 
 function login($un, $password, $mysqli) {
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT Username AND UserPassword 
+    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword 
         FROM Users
        WHERE Username = ?
         LIMIT 1")) {
@@ -61,7 +61,7 @@ function login($un, $password, $mysqli) {
                     // XSS protection as we might print this value
                     $un = preg_replace("/[^0-9]+/", "", $un);
                     // XSS protection as we might print this value
-                    $_SESSION['username'] = $un;
+                    $_SESSION['username'] = $db_un;
                     $_SESSION['login_string'] = hash('sha512', 
                               $db_password . $user_browser);
                     // Login successful.
@@ -72,7 +72,7 @@ function login($un, $password, $mysqli) {
                     $now = time();
                     $mysqli->query("INSERT INTO loginAttempts(Username, time)
                                     VALUES ('$un', '$now')");
-                    return false;
+                    return true;
                 }
             }
         } else {
