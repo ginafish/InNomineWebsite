@@ -83,7 +83,7 @@ function login($un, $password, $mysqli) {
             return false;
         }
     } else {
-		echo("something went horribly wrong in the sql statement");
+		echo("Something went horribly wrong in the sql statement");
 	}
 }
 
@@ -115,13 +115,11 @@ function checkbrute($user_id, $mysqli) {
 
 function login_check($mysqli) {
     // Check if all session variables are set 
-    if (isset($_SESSION['user_id'], 
-                        $_SESSION['username'], 
+    if (isset($_SESSION['username'], 
                         $_SESSION['login_string'])) {
  
-        $un = $_SESSION['user_id'];
+        $un = $_SESSION['username'];
         $login_string = $_SESSION['login_string'];
-        $username = $_SESSION['username'];
  
         // Get the user-agent string of the user.
         $user_browser = $_SERVER['HTTP_USER_AGENT'];
@@ -130,7 +128,7 @@ function login_check($mysqli) {
                                       FROM Users 
                                       WHERE Username = ? LIMIT 1")) {
             // Bind "$user_id" to parameter. 
-            $stmt->bind_param('i', $user_id);
+            $stmt->bind_param('s', $un);
             $stmt->execute();   // Execute the prepared query.
             $stmt->store_result();
  
