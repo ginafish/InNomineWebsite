@@ -6,11 +6,6 @@ include_once 'includes/functions.php';
 sec_session_start(); 
 ?>
 
-
-<!-- Paste this into the if statement once done -->
-
-
-
 <!DOCTYPE html>
 <html>
     <head>
