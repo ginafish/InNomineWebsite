@@ -1,3 +1,13 @@
+<?php
+// Include database connection and functions here.  See 3.1. 
+sec_session_start(); 
+if(login_check($mysqli) == true) {
+        // Add your protected page content here!
+} else { 
+        echo 'You are not authorized to access this page, please login.';
+}
+?>
+
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

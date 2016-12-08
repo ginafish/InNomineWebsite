@@ -29,14 +29,13 @@ function sec_session_start() {
 }
 
 function login($un, $password, $mysqli) {
+	#echo("reached login");
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword 
-        FROM Users
-       WHERE Username = ?
-        LIMIT 1")) {
+    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword FROM Users WHERE Username = ? LIMIT 1")) {
         $stmt->bind_param('s', $un);  // Bind "$un" to parameter.
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
+		#echo("ran query");
  
         // get variables from result.
         $stmt->bind_result($db_un, $db_password);
@@ -45,21 +44,23 @@ function login($un, $password, $mysqli) {
         if ($stmt->num_rows == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
- 
+ 			#echo("checking for brutes");
             if (checkbrute($db_un, $mysqli) == true) {
                 // Account is locked 
                 // Send an email to user saying their account is locked
+				#echo("Account Locked.");
                 return false;
             } else {
                 // Check if the password in the database matches
                 // the password the user submitted. We are using
                 // the password_verify function to avoid timing attacks.
+				#echo("checking password");
                 if (password_verify($password, $db_password)) {
                     // Password is correct!
                     // Get the user-agent string of the user.
                     $user_browser = $_SERVER['HTTP_USER_AGENT'];
                     // XSS protection as we might print this value
-                    $un = preg_replace("/[^0-9]+/", "", $un);
+                    $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
                     // XSS protection as we might print this value
                     $_SESSION['username'] = $db_un;
                     $_SESSION['login_string'] = hash('sha512', 
@@ -69,17 +70,21 @@ function login($un, $password, $mysqli) {
                 } else {
                     // Password is not correct
                     // We record this attempt in the database
+					#echo("Password incorrect.");
                     $now = time();
                     $mysqli->query("INSERT INTO loginAttempts(Username, time)
                                     VALUES ('$un', '$now')");
-                    return true;
+                    return false;
                 }
             }
         } else {
             // No user exists.
+			#echo("User not found.");
             return false;
         }
-    }
+    } else {
+		echo("something went horribly wrong in the sql statement");
+	}
 }
 
 function checkbrute($user_id, $mysqli) {

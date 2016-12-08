@@ -9,11 +9,12 @@ if (isset($_POST['username'], $_POST['p'])) {
     $username = $_POST['username'];
     $password = $_POST['p']; // The hashed password.
  
-    if (login($email, $password, $mysqli) == true) {
+    if (login($username, $password, $mysqli) == true) {
         // Login success 
         header('Location: ../dashboard.php');
     } else {
-        // Login failed 
+        // Login failed
+		echo("failed in process");
         header('Location: ../index.php?error=1');
     }
 } else {

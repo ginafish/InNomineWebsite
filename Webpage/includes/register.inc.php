@@ -60,7 +60,7 @@ if (isset($_POST['username'], $_POST['email'], $_POST['p'])) {
                         $stmt->close();
                 }
         } else {
-                $error_msg .= '<p class="error">Database error line 55</p>';
+                $error_msg .= '<p class="error">Database error line 63</p>';
                 $stmt->close();
         }
 
