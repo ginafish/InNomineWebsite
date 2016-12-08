@@ -1,9 +1,13 @@
 <?php
+session_start(); 
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
+echo "Session Name:".$_SESSION['username'];
+echo "Cookie Name:".$_COOKIE['username'];
+
 #need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
-sec_session_start(); 
+
 ?>
 
 <!DOCTYPE html>
@@ -18,8 +22,8 @@ sec_session_start();
     </head>
     <body>
         <?php  
-    	if(login_check($mysqli) == true) : 
-        $user = htmlentities($_SESSION['username']); 
+    	/*if(login_check($mysqli) == true) : 
+        $user = htmlentities($_SESSION['username']); */ 
   		?>
 		<div class="container">
 			<div class="row">
@@ -75,10 +79,10 @@ sec_session_start();
 				</div>
 			</div>
 		</div>
-		<?php else : ?> 
+		<?php //else : ?> 
             <p> 
                 <span class="error">You have created a disturbance in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
             </p> 
-  <?php endif; ?> 
+  <?php  //endif; ?> 
     </body>
 </html>

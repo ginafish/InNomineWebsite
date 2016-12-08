@@ -1,4 +1,5 @@
 <?php
+session_start();
 include_once 'psl-config.php';
  
 function sec_session_start() {
@@ -25,38 +26,37 @@ function sec_session_start() {
         $httponly);
  
 	#echo("starting session");
-    session_start();            // Start the PHP session 
+    //session_start();            // Start the PHP session 
     session_regenerate_id(true);    // regenerated the session, delete the old one. 
 }
 
 function login($un, $password, $mysqli) {
-	#echo("reached login");
+	
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword FROM Users WHERE Username = ? LIMIT 1")) {
-        $stmt->bind_param('s', $un);  // Bind "$un" to parameter.
+    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword FROM Users WHERE Username = ? LIMIT 1")) {        
+	$stmt->bind_param('s', $un);  // Bind "$un" to parameter.
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
-		#echo("ran query");
- 
+
         // get variables from result.
         $stmt->bind_result($db_un, $db_password);
         $stmt->fetch();
- 
+ 	
         if ($stmt->num_rows == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
- 			#echo("checking for brutes");
             if (checkbrute($db_un, $mysqli) == true) {
                 // Account is locked 
                 // Send an email to user saying their account is locked
-				#echo("Account Locked.");
+		echo("You have accumulated too much discord in the symphony, please appeal to the superiors and try again.");
                 return false;
-            } else {
+            } else { 
                 // Check if the password in the database matches
                 // the password the user submitted. We are using
                 // the password_verify function to avoid timing attacks.
-				#echo("checking password");
-                if (password_verify($password, $db_password)) {
+		// echo "Passed Password: $password <br>";
+		// echo "Databa Password: $db_password";	                
+		if ($password == $db_password) {
                     // Password is correct!
                     // Get the user-agent string of the user.
                     $user_browser = $_SERVER['HTTP_USER_AGENT'];
@@ -64,8 +64,9 @@ function login($un, $password, $mysqli) {
                     $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
                     // XSS protection as we might print this value
                     $_SESSION['username'] = $db_un;
-					$_COOKIE['username'] = $db_un;
-					#echo($db_un);
+		    setcookie('username', $db_un);
+					// echo($db_un);
+					// echo $_SESSION['username'];
                     $_SESSION['login_string'] = hash('sha512', $db_password . $user_browser);
                     // Login successful.
                     return true;
@@ -92,7 +93,7 @@ function login($un, $password, $mysqli) {
 function checkbrute($user_id, $mysqli) {
     // Get timestamp of current time 
     $now = time();
- 
+ return false;
     // All login attempts are counted from the past 2 hours. 
     $valid_attempts = $now - (2 * 60 * 60);
  
@@ -163,7 +164,7 @@ function login_check($mysqli) {
 		echo(session_id());
 		echo($_SESSION);
 		echo("<br />");
-		phpinfo();
+		//phpinfo();
         return false;
     }
 }
@@ -197,4 +198,16 @@ function esc_url($url) {
     } else {
         return $url;
     }
+}
+
+
+function password_verify($password, $db_password){
+	
+	if ($password == $db_password){ 
+		$result=true; 
+	} else { 
+		$result=false;
+	}
+	//echo "Result is: $result";
+	return($result);
 }
