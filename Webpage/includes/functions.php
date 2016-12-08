@@ -24,6 +24,7 @@ function sec_session_start() {
         $secure,
         $httponly);
  
+	#echo("starting session");
     session_start();            // Start the PHP session 
     session_regenerate_id(true);    // regenerated the session, delete the old one. 
 }
@@ -63,8 +64,9 @@ function login($un, $password, $mysqli) {
                     $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
                     // XSS protection as we might print this value
                     $_SESSION['username'] = $db_un;
-                    $_SESSION['login_string'] = hash('sha512', 
-                              $db_password . $user_browser);
+					$_COOKIE['username'] = $db_un;
+					#echo($db_un);
+                    $_SESSION['login_string'] = hash('sha512', $db_password . $user_browser);
                     // Login successful.
                     return true;
                 } else {
@@ -158,6 +160,8 @@ function login_check($mysqli) {
 		echo("Session failed");
 		echo($_SESSION['username']);
 		echo($_SESSION['login_string']);
+		echo(session_id());
+		echo($_SESSION);
         return false;
     }
 }
