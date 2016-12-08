@@ -77,7 +77,7 @@ sec_session_start();
 		</div>
 		<?php else : ?> 
             <p> 
-                <span class="error">You have created discord in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
+                <span class="error">You have created a disturbance in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
             </p> 
   <?php endif; ?> 
     </body>
