@@ -4,10 +4,9 @@ include_once 'includes/functions.php';
 
 #need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
 sec_session_start(); 
+?>
 
-if(login_check($mysqli) == true) {
-        $user = htmlentities($_SESSION['username']);
-	echo '<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -18,6 +17,11 @@ if(login_check($mysqli) == true) {
 		<link rel="stylesheet" href="styles/main.css" />
     </head>
     <body>
+	<?php 
+		if(login_check($mysqli) == true) :
+        $user = htmlentities($_SESSION['username']);
+	?>
+
         <div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -69,15 +73,19 @@ if(login_check($mysqli) == true) {
 				</div>
 			</div>
 		</div>
+	<?php else : ?>
+            <p>
+                <span class="error">You have created discord in the symphony, please </span> Please <a href="index.php">login</a> and try again. </span>
+            </p>
+	<?php endif; ?>	
     </body>
-</html>'
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
-?>
+</html>
 
 
-<!-- Paste this into the if statement once done -->
+
+
+
+
 
 
 

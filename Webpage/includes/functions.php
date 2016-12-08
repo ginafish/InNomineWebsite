@@ -30,23 +30,23 @@ function sec_session_start() {
 
 function login($un, $password, $mysqli) {
     // Using prepared statements means that SQL injection is not possible. 
-    if ($stmt = $mysqli->prepare("SELECT Username, UserPassword 
+    if ($stmt = $mysqli->prepare("SELECT Username AND UserPassword 
         FROM Users
        WHERE Username = ?
         LIMIT 1")) {
-        $stmt->bind_param('s', $un);  // Bind "$email" to parameter.
+        $stmt->bind_param('s', $un);  // Bind "$un" to parameter.
         $stmt->execute();    // Execute the prepared query.
         $stmt->store_result();
  
         // get variables from result.
-        $stmt->bind_result($username, $db_password);
+        $stmt->bind_result($db_un, $db_password);
         $stmt->fetch();
  
         if ($stmt->num_rows == 1) {
             // If the user exists we check if the account is locked
             // from too many login attempts 
  
-            if (checkbrute($user_id, $mysqli) == true) {
+            if (checkbrute($db_un, $mysqli) == true) {
                 // Account is locked 
                 // Send an email to user saying their account is locked
                 return false;
@@ -60,7 +60,6 @@ function login($un, $password, $mysqli) {
                     $user_browser = $_SERVER['HTTP_USER_AGENT'];
                     // XSS protection as we might print this value
                     $un = preg_replace("/[^0-9]+/", "", $un);
-                    $_SESSION['un'] = $un;
                     // XSS protection as we might print this value
                     $_SESSION['username'] = $un;
                     $_SESSION['login_string'] = hash('sha512', 
