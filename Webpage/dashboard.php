@@ -36,13 +36,14 @@ sec_session_start();
 							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
 							$result = mysqli_query($credentials, $query);
 							$numPCamps = mysqli_fetch_row($result);
-							
-							echo "<div class='row'> <div class='col-md-6'>";
+							?>
+							<div class='row'> <div class='col-md-6'>
+							<?php
 							foreach ($numQCamps as $curRow){
 								echo "<span width=100>";
 								echo "$curRow";
 								#parse so that we can get campName and campID
-								echo "<button type='button' id='btnGoToDash'>Open</button>"
+								echo "<button type='button' id='btnGoToDash'>Open</button>";
 								echo "</span>";
 							}
 						
