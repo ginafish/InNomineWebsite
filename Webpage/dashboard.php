@@ -3,9 +3,6 @@ session_start();
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
-
-#need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
-
 ?>
 
 <!DOCTYPE html>
@@ -21,6 +18,11 @@ include_once 'includes/functions.php';
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
+		<style>
+			input[type="submit"] {
+				color: black;
+			}
+		</style>
     </head>
     <body>
 		<a href="logout.php">Logout?</a>
