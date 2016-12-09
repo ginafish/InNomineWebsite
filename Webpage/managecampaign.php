@@ -58,7 +58,11 @@ include_once 'includes/functions.php';
 			
 			
 			<div class="row">
-				<form class="form-horizontal">			
+				<form action="<?php if($_SESSION['CampaignID']!=NULL){
+						echo "..\scripts\submitChange.php";
+					} else {
+						echo "..\scripts\addCampaign.php";
+					} ?>" method="post" class="form-horizontal">			
 					<div class="row">
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campName">Campaign Name</label>
@@ -82,15 +86,15 @@ include_once 'includes/functions.php';
 						<div class="form-group col-md-3">
 							<label class="control-label sr-only" for="playerRestr">Player Types Restriction</label>							
 							<select class="form-control" name="playerRestr">
-								<option value="Choir">Angels Only</option>
-								<option value="Band">Demons Only</option>
-								<option selected="selected" value="Both">Allow Both</option>
+								<option value="c">Angels Only</option>
+								<option value="b">Demons Only</option>
+								<option selected="selected" value="">Allow Both</option>
 							</select>
 						</div>
 						
 						<div class="form-group col-md-3">
 							<label class="control-label" for="maxPlayers">Maximum Number of Players</label>
-							<input type="number" class="form-control" name="maxPlayers">
+							<input type="number" class="form-control" name="maxPlayers" value="<?php  echo (isset($row['PlayerLimit']))?$row['PlayerLimit']:'';?>"> 
 						</div>
 						
 						<br />
@@ -99,7 +103,7 @@ include_once 'includes/functions.php';
 							if($_SESSION['CampaignID']!=NULL) {
 								echo('<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>');
 							} else {
-								echo('<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button>');
+								echo('<button type="submit" value="SubCampInfo" class="btn btn-default">Create Campaign</button>');
 							}
 							?>
 					</div>
@@ -110,7 +114,8 @@ include_once 'includes/functions.php';
 				</form>				
 			</div>
 			
-			<?php if($_SESSION['CampaignID']!= NULL){?>
+			<?php if($_SESSION['CampaignID']== (-1)){
+?>
 			<div class="row">
 				<div class="col-md-6">
 					<form class="form-horizontal">
