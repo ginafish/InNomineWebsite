@@ -34,70 +34,69 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-6">
 					<h3>Player Campaigns</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<?php
-							/*if($_SESSION['loggedIn']=="true") : 
-								$user = $_SESSION['username'];*/
-							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
-							/*if(mysqli_connect_errno()){
-								printf("Connection failed: %s\n", mysqli_connect_error());
-								exit();
-							}*/
-							$result = mysqli_query($mysqli, $playerQuery);
-							if($result === FALSE){
-								echo("<p>You have no characters.</p>");
+					<?php
+					/*if($_SESSION['loggedIn']=="true") : 
+						$user = $_SESSION['username'];*/
+					$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = '";
+					$playerQuery .= $user . "'";
+					$result = mysqli_query($mysqli, $playerQuery) or die(mysqli_error($link));
+					if(mysqli_connect_errno()){
+						printf("Connection failed: %s\n", mysqli_connect_error());
+						exit();
+					}
+					if($result === FALSE){
+						echo("<p>You have no characters.</p>");
+					}
+					else {
+						$fields_num = mysqli_num_fields($result);
+						echo("<div class='row'> <div class='col-md-6'>");
+						while($row = mysqli_fetch_array($result)) {
+							echo("<span width=100 style='border: 1px black'>");
+							for($i=0; $i<$fields_num; $i++)	{
+								$field = mysqli_fetch_field($result);
+								echo "{$field->name}: ";
+								echo($row[$field->name]);
+								echo('<br />');
 							}
-							else {
-								$fields_num = mysqli_num_fields($result);
-								echo("<div class='row'> <div class='col-md-6'>");
-								while($row = mysqli_fetch_row($result)) {
-									echo("<span width=100>");
-									for($i=0; $i<$fields_num; $i++)	{
-										$field = mysqli_fetch_field($result);	
-										echo "{$field->name}: $row[i]";
-										echo "<button type='button' id='btnGoToCamp'>Open</button>";
-									}
-									echo("</span");
-								}
-								mysqli_free_result($result);
-								echo("/div");
-							}
-							?>
-							<p><a href=".\charactercreate.php">Join a campaign</a></p>
-						</div>
-					</div>
+							echo "<button type='button' id='btnGoToCamp'>Open</button>";
+							echo("</span>");
+						}
+						mysqli_free_result($result);
+					}
+					?>
+					<p><a href=".\charactercreate.php">Join a campaign</a></p>
 				</div>
 				<div class="col-md-6">
 					<h3>GM Campaigns</h3>
-					<div class="row">
-						<div class="col-md-6">
-							<?php
-							$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = $user";
-							$result = mysqli_query($mysqli, $gmQuery);
-							echo($result);
-							if($result === FALSE){
-								echo("<p>You have no campaigns.</p>");
+					<?php
+					$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
+					$gmQuery .= $user . "'";
+					$result = mysqli_query($mysqli, $gmQuery) or die(mysqli_error($link));
+					if(mysqli_connect_errno($mysqli)){
+						echo("Connection failed: " . mysqli_error($mysqli));
+						exit();
+					}
+					#echo(mysqli_num_rows($result));
+					if($result === FALSE){
+						echo("<p>You have no campaigns.</p>");
+					}
+					else {
+						$fields_num = mysqli_num_fields($result);
+						while($row = mysqli_fetch_array($result)) {
+							echo("<span width=100 style='border: 1px black'>");
+							for($i=0; $i<$fields_num; $i++)	{
+								$field = mysqli_fetch_field($result);	
+								echo "{$field->name}: ";
+								echo($row[$field->name]);
+								echo('<br />');
 							}
-							else {
-								$fields_num = mysqli_num_fields($result);
-								echo("<div class='row'> <div class='col-md-6'>");
-								while($row = mysqli_fetch_row($result)) {
-									echo("<span width=100>");
-									for($i=0; $i<$fields_num; $i++)	{
-										$field = mysqli_fetch_field($result);	
-										echo "{$field->name}: $row[i]";
-										echo "<button type='button' id='btnGoToCamp'>Open</button>";
-									}
-									echo("</span");
-								}
-								mysqli_free_result($result);
-								echo("/div");
-							}
-							?>
-							<p><a href=".\managecampaign.php">Create a campaign</a></p>
-						</div>
-					</div>
+							echo "<button type='button' id='btnGoToCamp'>Open</button>";
+							echo("</span>");
+						}
+						mysqli_free_result($result);
+					}
+					?>
+					<p><br /><a href=".\managecampaign.php">Create a campaign</a></p>
 				</div>
 			</div>
 		</div>
