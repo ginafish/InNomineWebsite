@@ -3,6 +3,8 @@ session_start();
 include_once '../includes/db_connect.php';
 include_once '../includes/functions.php';
 
+#take all of the variables from the charactercreate.php and insert them into the database
+
 $campID = $_POST['newCampID'];
 $characterName = $_POST['charName'];
 $choirBandMem = $_POST['bandchoir'];
@@ -41,7 +43,7 @@ $celInsQuer = "INSERT INTO CelestialStats (CharacterID, Celestial, Will, Percept
 #echo $celInsQuer . "<br />";
 mysqli_query($mysqli, $celInsQuer) or die(mysqli_error($db));
 
-$joinCampQuer = "INSERT INTO CharacterCampaignParticipation VALUES (" . $campID . ", " . $nextID . ", " . ($int * $eth) . ", " . ($will * $celes) . ", 0);";
+$joinCampQuer = "INSERT INTO CharacterCampaignParticipation VALUES (" . $campID . ", " . $nextID . ", " . ($intel * $eth) . ", " . ($will * $celes) . ", 0);";
 #echo $joinCampQuer . "<br />";
 mysqli_query($mysqli, $joinCampQuer) or die(mysqli_error($db));
 
