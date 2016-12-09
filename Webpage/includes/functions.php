@@ -64,7 +64,7 @@ function login($un, $password, $mysqli) {
                     $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
                     // XSS protection as we might print this value
                     $_SESSION['username'] = $db_un;
-		    setcookie('username', $db_un);
+		    $_SESSION['loggedIn']="true";
 					// echo($db_un);
 					// echo $_SESSION['username'];
                     $_SESSION['login_string'] = hash('sha512', $db_password . $user_browser);
@@ -77,7 +77,8 @@ function login($un, $password, $mysqli) {
                     $now = time();
                     $mysqli->query("INSERT INTO loginAttempts(Username, time)
                                     VALUES ('$un', '$now')");
-                    return false;
+                    $_SESSION['loggedIn']="false";
+		    return false;
                 }
             }
         } else {
@@ -116,59 +117,6 @@ function checkbrute($user_id, $mysqli) {
     }
 }
 
-function login_check($mysqli) {
-    // Check if all session variables are set 
-    if (isset($_SESSION['username'], $_SESSION['login_string'])) {
- 
-        $un = $_SESSION['username'];
-        $login_string = $_SESSION['login_string'];
- 
-        // Get the user-agent string of the user.
-        $user_browser = $_SERVER['HTTP_USER_AGENT'];
- 
-        if ($stmt = $mysqli->prepare("SELECT UserPassword FROM Users WHERE Username = ? LIMIT 1")) {
-            // Bind "$user_id" to parameter. 
-            $stmt->bind_param('s', $un);
-            $stmt->execute();   // Execute the prepared query.
-            $stmt->store_result();
- 
-            if ($stmt->num_rows == 1) {
-                // If the user exists get variables from result.
-                $stmt->bind_result($password);
-                $stmt->fetch();
-                $login_check = hash('sha512', $password . $user_browser);
- 
-                if (hash_equals($login_check, $login_string) ){
-                    // Logged In!!!! 
-                    return true;
-                } else {
-                    // Not logged in 
-					echo("hash failed");
-                    return false;
-                }
-            } else {
-                // Not logged in 
-				echo("query returned nothing");
-                return false;
-            }
-        } else {
-            // Not logged in 
-			echo("SQL failed");
-            return false;
-        }
-    } else {
-        // Not logged in 
-		echo("Session failed");
-		echo($_SESSION['username']);
-		echo($_SESSION['login_string']);
-		echo(session_id());
-		echo($_SESSION);
-		echo("<br />");
-		//phpinfo();
-        return false;
-    }
-}
-
 function esc_url($url) {
  
     if ('' == $url) {
@@ -198,16 +146,4 @@ function esc_url($url) {
     } else {
         return $url;
     }
-}
-
-
-function password_verify($password, $db_password){
-	
-	if ($password == $db_password){ 
-		$result=true; 
-	} else { 
-		$result=false;
-	}
-	//echo "Result is: $result";
-	return($result);
 }

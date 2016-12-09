@@ -3,8 +3,6 @@ session_start();
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
-echo "Session Name:".$_SESSION['username'];
-echo "Cookie Name:".$_COOKIE['username'];
 
 #need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
 
@@ -22,9 +20,10 @@ echo "Cookie Name:".$_COOKIE['username'];
     </head>
     <body>
         <?php  
-    	/*if(login_check($mysqli) == true) : 
-        $user = htmlentities($_SESSION['username']); */ 
-  		?>
+    	if($_SESSION['loggedIn']=="true") : 
+        $user = htmlentities($_SESSION['username']);  
+  		?>w
+		<a href="logout.php">Logout?</a>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -38,7 +37,7 @@ echo "Cookie Name:".$_COOKIE['username'];
 						<div class="col-md-6">
 							<?php
 							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
-							$result = mysqli_query($credentials, $query);
+							$result = mysqli_query($mysqli, $query);
 							$numPCamps = mysqli_fetch_row($result);
 							?>
 							<div class='row'> <div class='col-md-6'>
@@ -79,10 +78,10 @@ echo "Cookie Name:".$_COOKIE['username'];
 				</div>
 			</div>
 		</div>
-		<?php //else : ?> 
+		<?php else : ?> 
             <p> 
                 <span class="error">You have created a disturbance in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
             </p> 
-  <?php  //endif; ?> 
+  <?php  endif; ?> 
     </body>
 </html>

@@ -2,13 +2,10 @@
 session_start();
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
+	if($_SESSION['loggedIn']=="true"){ 
+		header('Location: ../dashboard.php');
+	 }
 
- 
-/*if (login_check($mysqli) == true) {
-    $logged = 'in';
-} else {
-    $logged = 'out';
-}*/
 ?>
 
 <!DOCTYPE html>
@@ -95,9 +92,6 @@ include_once 'includes/functions.php';
 		
 	</div>
 <?php
-	if(session_status() == PHP_SESSION_ACTIVE){ ?>
-		<p> You are currently logged in. Logout? </p>
-	<?php }
 /*if (login_check($mysqli) == true) {
 	echo '<p>Currently logged ' . $logged . ' as ' . htmlentities($_SESSION['username']) . '.</p>';
 	echo '<p>Do you want to change user? <a href="includes/logout.php">Log out</a>.</p>';
