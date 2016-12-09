@@ -90,7 +90,7 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action="scripts/goToGMCamp.php" method="post">');
+							echo('<form action=".\campaign-gm.php" method="post">');
 							for($i=0; $i<$fields_num; $i++)	{
 								$field = mysqli_fetch_field($result);	
 								echo ('<input type="text" name="');
