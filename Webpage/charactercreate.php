@@ -38,9 +38,6 @@ include_once 'includes/functions.php';
 		<div class="container">
 			
 			<form action="scripts/createChar.php" class="form-horizontal" method="post">
-				<?php
-				echo "<input type='number' name='newCampID' value='" . $_SESSION['campJoinID'] . "' hidden>";
-				?>
 				<div class="row">
 					<div class="col-md-12">
 						<h1>Character Sheet</h1>
@@ -53,6 +50,10 @@ include_once 'includes/functions.php';
 				<div class="row">
 					
 					<div class="col-md-3">
+						<div class="form-group form-group-lg">
+							<label class="control-label" for="newCampID">Campaign ID</label>
+							<input type='number' name='newCampID' class="form-control" id="newCampID" required="required">
+						</div>
 						<div class="form-group form-group-lg">
 							<label class="control-label" for="charName">Character Name</label>
 							<input type="text" name="charName" class="form-control" id="charName" required="required">
