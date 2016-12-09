@@ -24,27 +24,27 @@ $nextIDRes = mysqli_query($mysqli, $getNextCharIDQuer);
 $lastID = mysqli_fetch_array($nextIDRes);
 $lastID = $lastID['LastID'];
 $nextID = $lastID + 1;
-echo $nextID . "<br />";
+#echo $nextID . "<br />";
 
 $charInsQuer = "INSERT INTO Characters (CharacterID, CharacterName, Superior, ChoirBandMembership, ChoirBandName, Essence, OwnerUsername) VALUES (" . $nextID . ", '" . $characterName . "', '" . $superior . "', '" . $choirBandMem . "', '" . $cbName . "', '" . $essence . "', '" . $_SESSION['username'] . "');";
-echo $charInsQuer . "<br />";
+#echo $charInsQuer . "<br />";
 mysqli_query($mysqli, $charInsQuer) or die(mysqli_error($db));
 
 $corpInsQuer = "INSERT INTO CorporealStats VALUES (" . $nextID . ", " . $corp . ", " . $str . ", " . $agi . ");";
-echo $corpInsQuer . "<br />";
+#echo $corpInsQuer . "<br />";
 mysqli_query($mysqli, $corpInsQuer) or die(mysqli_error($db));
 
 $ethInsQuer = "INSERT INTO EtherealStats (CharacterID, Ethereal, Intelligence, Prec) VALUES (" . $nextID . ", " . $eth . ", " . $intel . ", " . $prec . ");";
 mysqli_query($mysqli, $ethInsQuer) or die(mysqli_error($db));
 
 $celInsQuer = "INSERT INTO CelestialStats (CharacterID, Celestial, Will, Perception) VALUES (" . $nextID . ", " . $celes . ", " . $will . ", " . $perc . ");";
-echo $celInsQuer . "<br />";
+#echo $celInsQuer . "<br />";
 mysqli_query($mysqli, $celInsQuer) or die(mysqli_error($db));
 
 $joinCampQuer = "INSERT INTO CharacterCampaignParticipation VALUES (" . $campID . ", " . $nextID . ", " . ($int * $eth) . ", " . ($will * $celes) . ", 0);";
-echo $joinCampQuer . "<br />";
+#echo $joinCampQuer . "<br />";
 mysqli_query($mysqli, $joinCampQuer) or die(mysqli_error($db));
 
 
-#header('Location: ../../dashboard.php');
+header('Location: ../../dashboard.php');
 ?>
