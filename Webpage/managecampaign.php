@@ -1,6 +1,8 @@
 <?php
-// Include database connection and functions here.  See 3.1. 
-session_start(); ?>
+session_start();
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+ ?>
 
 <html>
 	<head>
@@ -12,7 +14,7 @@ session_start(); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
-		<?php if($_SESSION['campaignId']!= NULL){?>
+		<?php if($_SESSION['CampaignID']!= NULL){?>
 		<title>Manage Campaign</title>
 		<?php } else { ?>
 		<title>Create Campaign</title>
@@ -30,11 +32,11 @@ session_start(); ?>
 
 <?php if($_SESSION['loggedIn']="true") { ?>
 		<div class="container">
-			
 			<div class="row">
 				<div class="col-md-12">
 			<?php
-			if($_SESSION['campaignId']!= NULL){
+			echo "campaignId: ".$_SESSION['CampaignID'];
+			if($_SESSION['CampaignID']!= NULL){
 				echo("<h2>Manage Campaign</h2>");
 			} else {
 				echo("<h2>Create Campaign</h2>");
@@ -86,7 +88,7 @@ session_start(); ?>
 						<br />
 						<div class="pull-right">
 							<?php 
-							if($_SESSION['campaignID']!=NULL) {
+							if($_SESSION['CampaignID']!=NULL) {
 								echo('<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>');
 							} else {
 								echo('<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button>');
@@ -100,7 +102,7 @@ session_start(); ?>
 				</form>				
 			</div>
 			
-			<?php if($_SESSION['campaignId']!= NULL){?>
+			<?php if($_SESSION['CampaignID']!= NULL){?>
 			<div class="row">
 				<div class="col-md-6">
 					<form class="form-horizontal">
