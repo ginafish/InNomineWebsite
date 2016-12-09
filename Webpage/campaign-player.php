@@ -28,15 +28,29 @@ include_once 'includes/functions.php';
 					<?php
 					$campID = $_SESSION["CampaignID"];
 					$user = $_SESSION["Username"];
-						echo"<h3>$campaignName</h3>"
+						echo"<h3>Player Campaign View</h3>";
 					?>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col=md-4">		<!-- character data -->
-					<?php 
+					<?php
+					$charName = "";
+					$charSuperior = "";
+					$choirBandMem = "";
+					$chrCorp = "";
+					$chrStr = "";
+					$chrAgi = "";
+					$chrEth = "";
+					$chrInt = "";
+					$chrPrec = "";
+					$chrCel = "";
+					$chrWill = "";
+					$chrPerc = "";
+					$chrEss = "";
 					$chrDataQuer = "SELECT CharacterID, CharacterName, Dissonance, Discord, Superior, ChoirBandMembership, Essence FROM Characters WHERE Username =" . $user . "AND CharacterID IN (SELECT CharacterID FROM CharacterCampaignParticipation WHERE CampaignID =" . $campID . ")";
-					$chrDatresult = mysqli_query($credentials, $chrDataQuer);
+					echo $chrDataQuer . "<br />";
+					$chrDatresult = mysqli_query($mysqli, $chrDataQuer);
 					$fields_num = mysqli_num_fields($chrDatresult);
 						while($row = mysqli_fetch_array($chrDatresult)) {
 							for($i=0; $i<$fields_num; $i++)  { 
@@ -45,26 +59,61 @@ include_once 'includes/functions.php';
 								echo($row[$field->name]); 
 								echo('<hr />');
               				}
+							$charName = $row['CharacterName'];
+							$charSuperior = $row['Superior'];
+							$choirBandMem = $row['ChoirBandMembership'];
+							$chrEss = $row['Essence'];
 						}
 					
-					#need to assign results to $vars
+					$chrCelStatQuer = "SELECT Celestial, Will, Perception, SoulHits FROM CelestialStats WHERE CharacterID = " . $charID;
+					$chrCelStatRes = mysqli_query($mysqli, $chrCelStatQuer);
+					$fields_num = mysqli_num_fields($chrCelStatRes);
+						while($row = mysqli_fetch_array($chrCelStatRes)) {
+							for($i=0; $i<$fields_num; $i++)  { 
+								$field = mysqli_fetch_field($chrCelStatRes);
+								echo "{$field->name}: "; 
+								echo($row[$field->name]); 
+								echo('<hr />');
+              				}
+							$chrCel = $row['Celestial'];
+							$chrWill = $row['Will'];
+							$chrPerc = $row['Perception'];
+						}
 					
-					$chrCelStatQuer = "SELECT Celestial, Will, Perception, SoulHits FROM CelestialStats WHERE CharacterID = $charID";
-					$chrCelStatRes = mysqli_query($credentials, $chrCelStatQuer);
-					$chrCelStatResRows = mysqli_fetch_row($chrCelStatRes);
+					$chrCorpStatQuer = "SELECT Corporeal, Strength, Agility FROM CorporealStats WHERE CharacterID = " . $charID;
+					$chrCorpStatRes = mysqli_query($mysqli, $chrCorpStatQuer);
+					$fields_num = mysqli_num_fields($chrCorpStatRes);
+						while($row = mysqli_fetch_array($chrCorpStatRes)) {
+							for($i=0; $i<$fields_num; $i++)  { 
+								$field = mysqli_fetch_field($chrCorpStatRes);
+								echo "{$field->name}: "; 
+								echo($row[$field->name]); 
+								echo('<hr />');
+              				}
+							$chrCorp = $row['Corporeal'];
+							$chrStr = $row['Strength'];
+							$chrAgi = $row['Agility'];
+						}
 					
-					$chrCorpStatQuer = "SELECT Corporeal, Strength, Agility FROM CorporealStats WHERE CharacterID = $charID";
-					$chrCorpStatRes = mysqli_query($credentials, $chrCorpStatQuer);
-					$chrCorpStatResRows = mysqli_fetch_row($chrCorpStatRes);
+					$chrEthStatQuer = "SELECT Ethereal, Intelligence, Prec, SoulHits FROM EtherealStats WHERE CharacterID = " . $charID;
+					$chrEthStatRes = mysqli_query($mysqli, $chrEthStatQuer);
+					$fields_num = mysqli_num_fields($chrCorpStatRes);
+						while($row = mysqli_fetch_array($chrCorpStatRes)) {
+							for($i=0; $i<$fields_num; $i++)  { 
+								$field = mysqli_fetch_field($chrCorpStatRes);
+								echo "{$field->name}: "; 
+								echo($row[$field->name]); 
+								echo('<hr />');
+              				}
+							$chrEth = $row['Ethereal'];
+							$chrInt = $row['Intelligence'];
+							$chrPrec = $row['Prec'];
+						}
 					
-					$chrEthStatQuer = "SELECT Ethereal, Intelligence, Prec, SoulHits FROM EtherealStats WHERE CharacterID = $charID";
-					$chrEthStatRes = mysqli_query($credentials, $chrEthStatQuer);
-					$chrEthStatResRows = mysqli_fetch_row($chrEthStatRes);
 					
-					
-					$charDataElem = "<span><p>Name: $charName</p><p>Archangel/Demon Prince: $charSuperior</p><p>Choir/Band: $choirBandMem</p><p>Corporeal Forces: $chrCorp</p><p>Strength: $chrStr</p><p>Agility: $chrAgi</p><p>Ethereal Forces: $chrEth</p><p>Intelligence: $chrInt</p><p>Precision: $chrPrec</p><p>Celestial Forces: $chrCel</p><p>Will: $chrWill</p><p>Perception: $chrPerc</p><p>Essence: $chrEss</p></span>";
+					$charDataElem = "<span><p>Name: " . $charName . "</p><p>Archangel/Demon Prince: " . $charSuperior . "</p><p>Choir/Band: " . $choirBandMem . "</p><p>Corporeal Forces: " . $chrCorp . "</p><p>Strength: " . $chrStr . "</p><p>Agility: " . $chrAgi . "</p><p>Ethereal Forces: " . $chrEth . "</p><p>Intelligence: " . $chrInt . "</p><p>Precision: " . $chrPrec . "</p><p>Celestial Forces: " . $chrCel . "</p><p>Will: " . $chrWill . "</p><p>Perception: " . $chrPerc . "</p><p>Essence: " . $chrEss . "</p></span>";
 					?>
-					<span>
+					<!--<span>
 						<p>Name:</p>
 						<p>Archangel/Demon Prince</p>
 						<p>Choir/Band</p>
@@ -78,7 +127,7 @@ include_once 'includes/functions.php';
 						<p>Will</p>
 						<p>Perception</p>
 						<p>Essence:</p>
-					</span>
+					</span> -->
 					
 					<span>
 						<textarea>Notes</textarea>
@@ -87,12 +136,12 @@ include_once 'includes/functions.php';
 				<div class="col-md-4">
 					<?php
 					$skillDataQuer = "SELECT OwnedSkills.SkillName, OwnedSkills.RanksTaken, Skills.BaseSkill, Skills.ShortDescription, Skills.LongDescription FROM OwnedSkills JOIN Skills ON OwnedSkills.SkillName = Skills.SkillName WHERE OwnedSkills.CharacterID = $charID";
-					$result = mysqli_query($credentials, $skillDataQuer);
+					$result = mysqli_query($mysqli, $skillDataQuer);
 					$rows = mysqli_fetch_row($result);
 					echo "<span>$rows</span>";
 					
 					$songDataQuer = "SELECT OwnedSongs.SongName, OwnedSongs.Force, OwnedSongs.RanksTaken, Songs.EssenceRequired, Songs.Duration, Songs.Disruption, Songs.ShortDescription, Songs.LongDescription FROM OwnedSongs JOIN Songs ON OwnedSongs.SongName = Songs.SongName AND OwnedSongs.Force = Songs.Force WHERE OwnedSongs.CharacterID = $charID";
-					$songResults = mysqli_query($credentials, $skillDataQuer);
+					$songResults = mysqli_query($mysqli, $skillDataQuer);
 					$songRows = mysqli_fetch_row($result);
 					echo "<span>$songRows</span>";
 					?>
