@@ -97,12 +97,12 @@ include_once 'includes/functions.php';
 								echo "{$field->name}";
 								echo('" value="');
 								echo ($row[$field->name]);
-								echo ('" hidden disabled>');
+								echo ('" hidden>');
 								echo "{$field->name}: ";
 								echo($row[$field->name]);
 								echo('</input><br />');
 							}
-							echo "<input type='submit' id='btnGoToCamp'>Open</button>";
+							echo "<input type='submit' id='btnGoToCamp' value='Open'></input>";
 							echo('</form>');
 							echo("</span>");
 						}
