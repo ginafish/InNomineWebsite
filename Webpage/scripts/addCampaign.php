@@ -6,7 +6,14 @@ include_once '../includes/functions.php';
 	if(!isset($_POST['campName'])){
 		echo("I'm broken");
 	} else {
-		$submitNew="INSERT INTO Campaigns (CampaignName, CampaignPassword, CharacterRestrictions, CampaignBlurb, PlayerLimit, GameMasterUsername) VALUES('".$_POST['campName']."', '".$_POST['campPass']."', '".$_POST['playerRestr']. "', '".$_POST['campBlurb']. "', '".$_POST['maxPlayers']."', '".$_SESSION['username']."')";
+		$name=mysqli_real_escape_string($mysqli, $_POST['campName']);
+		$name=htmlspecialchars($name);
+		$pass=mysqli_real_escape_string($mysqli, $_POST['campPass']);
+		$rstr=mysqli_real_escape_string($mysqli, $_POST['playerRestr']);
+		$blurb=htmlspecialchars($_POST['campBlurb']);
+		$blurb=mysqli_real_escape_string($mysqli, $blurb);
+		$submitNew="INSERT INTO Campaigns (CampaignName, CampaignPassword, CharacterRestrictions, CampaignBlurb, PlayerLimit, GameMasterUsername) VALUES('".$name."', '".$pass."', '".$rstr. "', '".$blurb. "', '".$_POST['maxPlayers']."', '".$_SESSION['username']."')";
+		echo $submitNew;
 		$result=mysqli_query($mysqli, $submitNew);
 		if($result==1){
 			header('Location: ../../dashboard.php');

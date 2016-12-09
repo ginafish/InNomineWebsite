@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 09, 2016 at 06:05 AM
+-- Generation Time: Dec 09, 2016 at 06:48 AM
 -- Server version: 5.5.51-38.2
 -- PHP Version: 5.4.31
 
@@ -131,7 +131,9 @@ INSERT INTO `CelestialStats` (`CharacterID`, `Celestial`, `Will`, `Perception`, 
 (6, 10, 3, 3, 0),
 (7, 10, 3, 3, 0),
 (8, 10, 3, 3, 0),
-(9, 9, 2, 2, 0);
+(9, 9, 2, 2, 0),
+(10, 10, 5, 12, 50),
+(11, 10, 6, 9, 60);
 
 --
 -- Triggers `CelestialStats`
@@ -166,7 +168,9 @@ INSERT INTO `CharacterCampaignParticipation` (`CampaignID`, `CharacterID`, `Curr
 (1, 1, 0, 0, 0),
 (2, 2, 0, 0, 0),
 (1, 4, 5, 2, 0),
-(2, 9, 0, 18, 0);
+(2, 9, 0, 18, 0),
+(8, 10, 0, 50, 0),
+(6, 11, 120, 60, 0);
 
 -- --------------------------------------------------------
 
@@ -184,7 +188,7 @@ CREATE TABLE IF NOT EXISTS `Characters` (
   `ChoirBandName` varchar(20) NOT NULL,
   `Essence` int(11) NOT NULL,
   `OwnerUsername` varchar(12) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Characters`
@@ -199,7 +203,9 @@ INSERT INTO `Characters` (`CharacterID`, `CharacterName`, `Dissonance`, `Discord
 (5, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
 (7, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
 (8, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
-(9, 'asfdas', NULL, NULL, 'Choir - Superior', 'B', 'Band - Succubus', 6, 'newtest');
+(9, 'asfdas', NULL, NULL, 'Choir - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
+(10, 'QQ', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'mrayan'),
+(11, 'Q_Q', NULL, NULL, 'Choir - Superior', 'C', 'Choir - Seraphim', 6, 'mrayan');
 
 -- --------------------------------------------------------
 
@@ -252,7 +258,9 @@ INSERT INTO `CorporealStats` (`CharacterID`, `Corporeal`, `Strength`, `Agility`)
 (6, 10, 4, 4),
 (5, 10, 4, 4),
 (8, 10, 4, 4),
-(9, 7, 2, 2);
+(9, 7, 2, 2),
+(10, 3, 5, 1),
+(11, 10, 4, 8);
 
 -- --------------------------------------------------------
 
@@ -281,7 +289,9 @@ INSERT INTO `EtherealStats` (`CharacterID`, `Ethereal`, `Intelligence`, `Prec`, 
 (6, 10, 3, 3, 0),
 (5, 10, 3, 3, 0),
 (8, 10, 3, 3, 0),
-(9, 5, 2, 2, 0);
+(9, 5, 2, 2, 0),
+(10, 10, 4, 2, 40),
+(11, 10, 12, 3, 120);
 
 --
 -- Triggers `EtherealStats`
@@ -653,7 +663,7 @@ ALTER TABLE `Campaigns`
 -- AUTO_INCREMENT for table `Characters`
 --
 ALTER TABLE `Characters`
-  MODIFY `CharacterID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+  MODIFY `CharacterID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `Items`
 --
