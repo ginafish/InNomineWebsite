@@ -69,7 +69,7 @@ include_once 'includes/functions.php';
 				<div class="col-md-6">
 					<h3>GM Campaigns</h3>
 					<?php
-					$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
+					$gmQuery = "SELECT CampaignID, CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
 					$gmQuery .= $user . "'";
 					$result = mysqli_query($mysqli, $gmQuery) or die(mysqli_error($link));
 					if(mysqli_connect_errno($mysqli)){
