@@ -12,11 +12,11 @@ session_start(); ?>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
-		<?php if($_SESSION['campaignId']!=""){?>
+		<?php if($_SESSION['campaignId']!= NULL){?>
 		<title>Manage Campaign</title>
 		<?php } else { ?>
 		<title>Create Campaign</title>
-		<?php endif; ?>
+		<?php } ?>
 		<style>
 			.campBlurbInp{
 				width: 100%;
@@ -33,15 +33,17 @@ session_start(); ?>
 			
 			<div class="row">
 				<div class="col-md-12">
-					<h2>Manage Campaign</h2>
+			<?php if($_SESSION['campaignId']!= NULL){?>
+				<h2>Manage Campaign</h2>
+			<?php } else { ?>
+				<h2>Create Campaign</h2>
+			<?php } ?>
 				</div>
 			</div>
 			
 			
 			<div class="row">
-				<form class="form-horizontal">
-					
-					
+				<form class="form-horizontal">			
 					<div class="row">
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campName">Campaign Name</label>
@@ -78,8 +80,12 @@ session_start(); ?>
 						
 						<br />
 						<div class="pull-right">
-							<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Info</button>
-						</div>
+							<?php if($_SESSION['campaignID']!=NULL) { ?>
+							<button type="update" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
+							<?php } else { ?>
+							<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
+							<?php } ?>
+					</div>
 						
 					</div>
 					
@@ -87,7 +93,7 @@ session_start(); ?>
 				</form>				
 			</div>
 			
-			
+			<?php if($_SESSION['campaignId']!= NULL){?>
 			<div class="row">
 				<div class="col-md-6">
 					<form class="form-horizontal">
@@ -100,6 +106,7 @@ session_start(); ?>
 					</form>
 				</div>
 			</div>
+			<?php } ?>
 			
 		</div>
 <?php
