@@ -1,6 +1,7 @@
 <?php
 // Include database connection and functions here.  See 3.1. 
 session_start();
+echo "Character ID: ".$S_SESSION['CharacterID'];
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 

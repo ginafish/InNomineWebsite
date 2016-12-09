@@ -37,6 +37,8 @@ include_once 'includes/functions.php';
 			<?php
 			echo "campaignId: ".$_SESSION['CampaignID'];
 			if($_SESSION['CampaignID']!= NULL){
+				$queryCampaign="SELECT CampaignID, CampaignName, CampaignBlurb, CampaignPassword, PlayerLimit FROM Campaigns WHERE CampaignID = '".$_SESSION['CampaignID']."'";
+				$result=mysqli_query($mysqli, $queryCampaign);
 				echo("<h2>Manage Campaign</h2>");
 			} else {
 				echo("<h2>Create Campaign</h2>");
@@ -54,7 +56,7 @@ include_once 'includes/functions.php';
 					<div class="row">
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campName">Campaign Name</label>
-							<input type="text" name="campName" class="form-control">
+							<input type="text" name="campName" class="form-control" value=<?php echo "$result['CampaignName']"; ?>>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="form-group col-md-5">
