@@ -38,7 +38,12 @@ include_once 'includes/functions.php';
 			echo "campaignId: ".$_SESSION['CampaignID'];
 			if($_SESSION['CampaignID']!= NULL){
 				$queryCampaign="SELECT CampaignID, CampaignName, CampaignBlurb, CampaignPassword, PlayerLimit FROM Campaigns WHERE CampaignID = '".$_SESSION['CampaignID']."'";
-				$result=mysqli_query($mysqli, $queryCampaign);
+				$result = mysqli_query($mysqli, $queryCampaign) or die(mysqli_error($link));
+					if(mysqli_connect_errno($mysqli)){
+						echo("Connection failed: " . mysqli_error($mysqli));
+						exit();
+					}
+				$row = mysqli_fetch_array($result, MYSQL_ASSOC);
 				echo("<h2>Manage Campaign</h2>");
 			} else {
 				echo("<h2>Create Campaign</h2>");
@@ -56,18 +61,18 @@ include_once 'includes/functions.php';
 					<div class="row">
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campName">Campaign Name</label>
-							<input type="text" name="campName" class="form-control" value=<?php echo "$result['CampaignName']"; ?>>
+							<input type="text" name="campName" class="form-control" value="<?php  echo (isset($row['CampaignName']))?$row['CampaignName']:'';?>">
 						</div>
 						<div class="col-md-2"></div>
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campPass">Campaign Password (leave blank if you want no password)</label>
-							<input type="text" name="campPass" class="form-control">
+							<input type="text" name="campPass" class="form-control" value="<?php  echo (isset($row['CampaignPassword']))?$row['CampaignPassword']:'';?>">
 						</div>
 					</div>
 					<div class="row">
 						<div class="form-group col-md-12">
 							<label class="control-label" for="campBlurb">Campaign Blurb</label>
-							<input type="text" name="campBlurb" class="form-control campBlurbInp" maxlength=2500>
+							<input type="text" name="campBlurb" class="form-control campBlurbInp" value="<?php  echo (isset($row['CampaignBlurb']))?$row['CampaignBlurb']:'';?>" maxlength=2500>
 						</div>
 					</div>
 					
