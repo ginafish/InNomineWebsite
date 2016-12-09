@@ -51,21 +51,19 @@ include_once 'includes/functions.php';
 					<h5>Characters</h5>
 					<span id="charList">
 						<?php
-	$_SESSION['CampaignID'] = $_POST["CampaignID"];					
-	#echo($_SESSION['CampaignID']);
-	echo("<br />");
+						$_SESSION['CampaignID'] = $_POST["CampaignID"];
+						echo("<br />");
 						if(isset($_SESSION['CampaignID'])){
 							$playerListQuery = "SELECT * FROM GMSheet WHERE CampaignID = '";
 	                    	$playerListQuery .= $_SESSION['CampaignID'] . "'";
-							#echo($playerListQuery);
-							$result = mysqli_query($mysqli, $playerListQuery) or die(mysqli_error($link));
+							$result = mysqli_query($mysqli, $playerListQuery) or die(mysqli_error($link));		#query with error checking below
 							if(mysqli_connect_errno()){
 								printf("Connection failed: %s\n", mysqli_connect_error());
 								exit();
 							}
 							if($result === FALSE){
 								echo("<p>You have no players.</p>");
-							} else {
+							} else {		#print all that the query returns
 								$fields_num = mysqli_num_fields($result);
 								while($row = mysqli_fetch_array($result)) {
 									echo "Character: " . $row['CharacterName'] . "<br />MHP: " . $row['CurrentMindHits'] . "<br />SHP: " . $row['CurrentSoulHits'];
@@ -82,16 +80,6 @@ include_once 'includes/functions.php';
 					<hr />
 					
 					
-					<!--  Leave this for later....
-					<h5>Campaign Tools</h5>
-					<form class="form-inline">
-						<div class="form-group">
-							<input type="text" class="form-control" id="month" width="25px">/<input type="text" class="form-control" id="day" width="25px">/<input type="text" class="form-control" id="year" width="50px">
-							<button type="submit">Change Date</button>
-						</div>
-					</form>
-					<button onclick="manageCampaign">Manage Campaign</button>
-					-->
 				</div>
 				
 				<div class="col-md-8">
@@ -102,7 +90,7 @@ include_once 'includes/functions.php';
 		</div>
 <?php
 } else { 
-        echo 'You have created a disturbance in the symphony, please login.';
+        echo 'You have created a disturbance in the symphony, please <a href="http://tablespace.org">login.</a>';
 }
 ?>	
 	</body>

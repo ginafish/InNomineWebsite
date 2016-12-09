@@ -33,17 +33,20 @@ include_once 'includes/functions.php';
 		$_SESSION['CampaignID'] = NULL;
 		?>
 		<div class="container">
+			
+			<!-- header -->
 			<div class="row">
 				<div class="col-md-12">
 					<h1>Dashboard</h1>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-md-6">
+					
 					<h3>Player Campaigns</h3>
 					<?php
-					/*if($_SESSION['loggedIn']=="true") : 
-						$user = $_SESSION['username'];*/
+					#call all the campaigns that a player is a part of
 					$playerQuery = "SELECT camps.CampaignID, camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, charac.CharacterID, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = '";
 					$playerQuery .= $user . "'";
 					$result = mysqli_query($mysqli, $playerQuery) or die(mysqli_error($link));
@@ -57,6 +60,9 @@ include_once 'includes/functions.php';
 					else {
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
+							
+							#output each campaign's info in a seperate block as a form for passing info to and going to campaign view
+							
 							echo("<span width=100 style='border: 1px black'>");
 							echo('<form action=".\campaign-player.php" method="post">');
 							
@@ -114,9 +120,13 @@ include_once 'includes/functions.php';
 					?>
 					<p><a href=".\charactercreate.php">Join a campaign</a></p> 
 				</div>
+				
 				<div class="col-md-6">
+					
 					<h3>GM Campaigns</h3>
+					
 					<?php
+					#get all campaigns a user is a GM of
 					$gmQuery = "SELECT CampaignID, CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
 					$gmQuery .= $user . "'";
 					$result = mysqli_query($mysqli, $gmQuery) or die(mysqli_error($link));
@@ -131,6 +141,9 @@ include_once 'includes/functions.php';
 					else {
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
+							
+							#output campaign info in a block as a form for going to campaign view
+							
 							echo("<span width=100 style='border: 1px black'>");
 							echo('<form action=".\campaign-gm.php" method="post">');
 							
@@ -175,7 +188,7 @@ include_once 'includes/functions.php';
 				</div>
 			</div>
 		</div>
-		<?php else : ?> 
+		<?php else : ?> 		<!-- from above, if you're not logged in just show error message -->
             <p> 
                 <span class="error">You have created a disturbance in the symphony, please <a href="http://www.tablespace.org">login</a> and try again. </span> 
             </p> 

@@ -36,7 +36,12 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-12">
 			<?php
-			echo "campaignId: ".$_SESSION['CampaignID'];
+			#echo "campaignId: ".$_SESSION['CampaignID'];
+			
+			#dashboard sets CampaignID to null, so should always make sure right cID is reached, as want users to be able to accidentally close page and come back before session expires
+	
+			#same info for creating and updating campaign info, so simply do insert/update respectively using this page
+	
 			if($_SESSION['CampaignID']!= NULL){
 				$queryCampaign="SELECT CampaignID, CampaignName, CampaignBlurb, CampaignPassword, PlayerLimit FROM Campaigns WHERE CampaignID = '".$_SESSION['CampaignID']."'";
 				$result = mysqli_query($mysqli, $queryCampaign) or die(mysqli_error($link));
@@ -58,6 +63,7 @@ include_once 'includes/functions.php';
 			
 			
 			<div class="row">
+				<!-- different script depending on new campaign or updating campaign -->
 				<form action="<?php if($_SESSION['CampaignID']!=NULL){
 						echo "..\scripts\submitChange.php";
 					} else {
@@ -116,6 +122,7 @@ include_once 'includes/functions.php';
 			
 			<?php if($_SESSION['CampaignID']== (-1)){
 ?>
+			<!-- below is not fully implemented yet -->
 			<div class="row">
 				<div class="col-md-6">
 					<form class="form-horizontal">
@@ -133,7 +140,7 @@ include_once 'includes/functions.php';
 		</div>
 <?php
 } else { 
-        echo 'You have created a disturbance in the symphony, please login.';
+        echo 'You have created a disturbance in the symphony, please <a href="http://tablespace.org">login</a>.';
 }
 ?>
 	</body>

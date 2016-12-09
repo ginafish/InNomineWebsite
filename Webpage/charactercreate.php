@@ -20,6 +20,7 @@ include_once 'includes/functions.php';
 		<title>InNomine Character Creation</title>
 	
 		<script type="application/javascript">
+			/* For preventing nonsensical race options */
 			function updateRace(cbMembership){
 				var raceOps = document.getElementById("race").getElementsByTagName("option"); 
 				/*var raceOptions = raceElem.children();*/
@@ -37,16 +38,18 @@ include_once 'includes/functions.php';
 	<body>
 		<div class="container">
 			
-			<form action="scripts/createChar.php" class="form-horizontal" method="post">
-				<div class="row">
-					<div class="col-md-12">
-						<h1>Character Sheet</h1>
-						<span class="pull-right">
-							<a href="dashboard.php">Back to dashboard.</a>
-						</span>
-					</div>
+			<!-- header -->
+			<div class="row">
+				<div class="col-md-12">
+					<h1>Character Sheet</h1>
+					<span class="pull-right">
+						<a href="dashboard.php">Back to dashboard.</a>
+					</span>
 				</div>
-				
+			</div>
+			
+			<!-- Form for all of the character data -->
+			<form action="scripts/createChar.php" class="form-horizontal" method="post">
 				<div class="row">
 					
 					<div class="col-md-3">
@@ -96,7 +99,7 @@ include_once 'includes/functions.php';
 				</div>
 				
 				<div class="row">
-				
+				<!-- Stat values -->
 					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label" for="corppoints">Corporeal Force</label>
@@ -120,7 +123,7 @@ include_once 'includes/functions.php';
 					
 				</div>
 				
-				<!-- Stat values -->
+				<!-- Substat values -->
 				<div class="row">
 					
 					<div class="col-md-4">
@@ -232,7 +235,6 @@ include_once 'includes/functions.php';
 					<div class="col-md-1">
 						<button type="submit" value="CreateCharacter" class="btn btn-default">Finish and create character</button>
 					</div>
-				</div>
 				
 				
 			</form>

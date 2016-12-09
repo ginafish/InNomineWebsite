@@ -28,13 +28,10 @@ include_once 'includes/functions.php';
 		#loginerrormsg {
 			display: none;
 		}
-	</style>
-	
-	<script type="application/javascript">
-		function createAccount(){
-			
+		input {
+			color: black;
 		}
-	</script>
+	</style>
 	
 </head>
 <body>
@@ -55,6 +52,9 @@ include_once 'includes/functions.php';
 						echo '<p class="error">Error Logging In!</p>';
 					}
 				?> 
+					
+					<!-- login form;  hash all the passwords! -->
+					
 					<form action="includes/process_login.php" method="post" class="form-horizontal" name="login_form">
 						<div class="form-group">
 							<label for="username" class="control-label col-sm-2">Username:</label>
@@ -74,7 +74,7 @@ include_once 'includes/functions.php';
 								<input type="checkbox" name="rememberme" class="form-control"> -->
 							</fieldset>
 						</div>
-						<input type="button" value="Login" onclick="formhash(this.form.username, this.form.password, form);"></input>
+						<input type="button" value="Login" onclick="formhash(this.form.username, this.form.password, form);">
 					</form>
 					<!--<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button> -->
 					<p>If you don't have a login, please <a href='register.php'>register</a></p>

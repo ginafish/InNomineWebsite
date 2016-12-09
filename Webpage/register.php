@@ -15,13 +15,15 @@ include_once 'includes/functions.php';
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
+		<script type="text/JavaScript" src="js/sha512.js"></script>  
+        <script type="text/JavaScript" src="js/forms.js"></script> 
 		
 		<style>
 			body {
 				background-color: black;
 				color: white;
 			}
-			input[type="button"] {
+			input {
 				color: black;
 			}
 		</style>

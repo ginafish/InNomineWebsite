@@ -1,7 +1,6 @@
 <?php
 // Include database connection and functions here.  See 3.1. 
 session_start();
-#echo "Character ID: " . $_POST['CharacterID'];
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
@@ -35,6 +34,7 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-12">
 					<?php
+					#making sure all necessary variables are set, since were having issues with SESSION variables
 					$_SESSION['CampaignID'] = $_POST["CampaignID"];				
 					$campID = $_SESSION["CampaignID"];
 					$user = $_POST["OwnerUsername"];
@@ -51,6 +51,7 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-4">
 					<?php
+					#store all of the data needed for character sheet, output in a single string
 					$charName = "";
 					$charSuperior = "";
 					$choirBandMem = "";
@@ -112,6 +113,7 @@ include_once 'includes/functions.php';
 					?>
 					
 					<hr />
+					<!-- not saved notes just for users to type in -->
 					<span>
 						<textarea id="playernotes" value="Put temporary notes here"></textarea>
 					</span>
@@ -120,6 +122,7 @@ include_once 'includes/functions.php';
 				<div class="col-md-4">
 					<hr />
 					<?php
+					#skill and song list data, all of the skills and songs owned by a character
 					echo("<h4>Skills:</h4>");
 					$skillDataQuer = "SELECT OwnedSkills.SkillName, OwnedSkills.RanksTaken, Skills.BaseSkill, Skills.ShortDescription, Skills.LongDescription FROM OwnedSkills JOIN Skills ON OwnedSkills.SkillName = Skills.SkillName WHERE OwnedSkills.CharacterID = " . $charID;
 					#echo($skillDataQuer);
@@ -147,6 +150,7 @@ include_once 'includes/functions.php';
 					<?php
 					echo "Vessels will reside here.<hr />";
 	
+					#Health stats (minus vessel HP)
 					$chrHPQuer = "SELECT CurrentMindHits, CurrentSoulHits FROM CharacterCampaignParticipation WHERE CharacterID = " . $charID . " AND CampaignID = " . $campID;
 					$chrHPRes = mysqli_query($mysqli, $chrHPQuer);
 					$fields_num = mysqli_num_fields($chrHPRes);
@@ -158,7 +162,7 @@ include_once 'includes/functions.php';
 				</div>
 			</div>
 		</div>
-<?php
+<?php		#from the top, case for if not logged in
 } else { 
         echo 'You have created a disturbance in the symphony, please login.';
 }
