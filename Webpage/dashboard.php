@@ -16,7 +16,11 @@ include_once 'includes/functions.php';
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="styles/main.css" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="home.css">
+		<link rel="icon" href="favicon.png">
     </head>
     <body>
 		<a href="logout.php">Logout?</a>
@@ -51,7 +55,7 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action=".\goToPCamp.php" method="get">');
+							echo('<form action=".\scripts\goToPCamp.php" method="get">');
 							
 							echo ('<input type="text" name="CampaignID" value="');
 							echo ($row['CampaignID']);
