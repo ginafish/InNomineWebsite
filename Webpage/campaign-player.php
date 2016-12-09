@@ -54,7 +54,7 @@ include_once 'includes/functions.php';
 					#store all of the data needed for character sheet, output in a single string
 					$charName = "";
 					$charSuperior = "";
-					$choirBandMem = "";
+					$choirBandNam = "";
 					$chrCorp = "";
 					$chrStr = "";
 					$chrAgi = "";
@@ -66,14 +66,14 @@ include_once 'includes/functions.php';
 					$chrPerc = "";
 					$chrEss = "";
 	
-					$chrDataQuer = 'SELECT CharacterID, CharacterName, Superior, ChoirBandMembership, Essence FROM Characters WHERE CharacterID = "' . $charID . '"';
+					$chrDataQuer = 'SELECT CharacterID, CharacterName, Superior, ChoirBandName, Essence FROM Characters WHERE CharacterID = "' . $charID . '"';
 					#echo $chrDataQuer . "<br />";
 					$chrDatresult = mysqli_query($mysqli, $chrDataQuer);
 					$fields_num = mysqli_num_fields($chrDatresult);
 						while($row = mysqli_fetch_array($chrDatresult)) {
 							$charName = $row['CharacterName'];
 							$charSuperior = $row['Superior'];
-							$choirBandMem = $row['ChoirBandMembership'];
+							$choirBandMem = $row['ChoirBandName'];
 							$chrEss = $row['Essence'];
 						}
 					

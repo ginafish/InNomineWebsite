@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 21, 2016 at 08:33 PM
+-- Generation Time: Dec 09, 2016 at 06:05 AM
 -- Server version: 5.5.51-38.2
 -- PHP Version: 5.4.31
 
@@ -24,7 +24,7 @@ DELIMITER $$
 --
 -- Functions
 --
-CREATE DEFINER=`cpses_tuOLli6HZC`@`localhost` FUNCTION `effectSkl`(`characterID` INT UNSIGNED, `skllNm` VARCHAR(20)) RETURNS int(10) unsigned
+CREATE DEFINER=`turnip`@`localhost` FUNCTION `effectSkl`(`characterID` INT UNSIGNED, `skllNm` VARCHAR(20)) RETURNS int(10) unsigned
     NO SQL
     DETERMINISTIC
 BEGIN
@@ -91,31 +91,19 @@ CREATE TABLE IF NOT EXISTS `Campaigns` (
   `IngameTime` varchar(50) DEFAULT NULL,
   `GameMasterUsername` varchar(12) NOT NULL,
   `CampaignBlurb` varchar(2500) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Campaigns`
 --
 
 INSERT INTO `Campaigns` (`CampaignID`, `CampaignName`, `CampaignPassword`, `CharacterRestrictions`, `PlayerLimit`, `IngameDate`, `IngameTime`, `GameMasterUsername`, `CampaignBlurb`) VALUES
-(1, 'theNewDepartment', NULL, NULL, 3, NULL, NULL, 'mrayan', 'There will be something relevant here eventually, until then, it''s a big mess'),
-(2, 'theOldDepartment', NULL, NULL, 0, NULL, NULL, 'Melissa', 'Probably will never be anything here...');
-
---
--- Triggers `Campaigns`
---
-DELIMITER $$
-CREATE TRIGGER `validateMaxPlayers` AFTER UPDATE ON `Campaigns`
- FOR EACH ROW BEGIN
-  UPDATE Campaigns 
-	SET PlayerLimit = 
-		(SELECT COUNT(CharacterID) FROM CharacterCampaignParticipation WHERE
-        CharacterCampaignParticipation.CampaignID = NEW.CampaignID)
-    WHERE PlayerLimit<
-	(SELECT COUNT(CharacterID) FROM CharacterCampaignParticipation WHERE CharacterCampaignParticipation.CampaignID=NEW.CampaignID);
-END
-$$
-DELIMITER ;
+(1, 'theNewDepartment', '', '', 3, NULL, NULL, 'mrayan', 'Hopefully will have a real change here. '),
+(2, 'theOldDepartment', NULL, NULL, 3, NULL, NULL, 'Melissa', 'Probably will never be anything here...'),
+(3, 'kjhjkl', NULL, NULL, 6, NULL, NULL, 'newtest', 'xcxcvbbcvxxbcvbxcvbxcvbvcxzbvcx'),
+(4, 'testCamp', NULL, NULL, 5, NULL, NULL, 'newtest', 'Words and stuff and things.'),
+(6, 'aNewCampaign', '', '', 3, NULL, NULL, 'mrayan', 'Hopefully this will work'),
+(8, 'A Third Campaign', '', 'c', 6, NULL, NULL, 'mrayan', 'Do these work?');
 
 -- --------------------------------------------------------
 
@@ -138,7 +126,23 @@ CREATE TABLE IF NOT EXISTS `CelestialStats` (
 INSERT INTO `CelestialStats` (`CharacterID`, `Celestial`, `Will`, `Perception`, `SoulHits`) VALUES
 (1, 4, 10, 6, 40),
 (2, 3, 6, 6, 18),
-(3, 6, 6, 18, 3);
+(4, 5, 2, 2, 1),
+(3, 6, 6, 18, 3),
+(6, 10, 3, 3, 0),
+(7, 10, 3, 3, 0),
+(8, 10, 3, 3, 0),
+(9, 9, 2, 2, 0);
+
+--
+-- Triggers `CelestialStats`
+--
+DELIMITER $$
+CREATE TRIGGER `setSoulHits` BEFORE INSERT ON `CelestialStats`
+ FOR EACH ROW BEGIN
+SET new.SoulHits = (new.Will * new.Celestial);
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -160,7 +164,9 @@ CREATE TABLE IF NOT EXISTS `CharacterCampaignParticipation` (
 
 INSERT INTO `CharacterCampaignParticipation` (`CampaignID`, `CharacterID`, `CurrentMindHits`, `CurrentSoulHits`, `KickedStatus`) VALUES
 (1, 1, 0, 0, 0),
-(2, 2, 0, 0, 0);
+(2, 2, 0, 0, 0),
+(1, 4, 5, 2, 0),
+(2, 9, 0, 18, 0);
 
 -- --------------------------------------------------------
 
@@ -178,7 +184,7 @@ CREATE TABLE IF NOT EXISTS `Characters` (
   `ChoirBandName` varchar(20) NOT NULL,
   `Essence` int(11) NOT NULL,
   `OwnerUsername` varchar(12) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Characters`
@@ -187,7 +193,38 @@ CREATE TABLE IF NOT EXISTS `Characters` (
 INSERT INTO `Characters` (`CharacterID`, `CharacterName`, `Dissonance`, `Discord`, `Superior`, `ChoirBandMembership`, `ChoirBandName`, `Essence`, `OwnerUsername`) VALUES
 (1, 'Raziel', NULL, NULL, 'Marc', 'C', 'Kyriotate', 9, 'fletcal'),
 (2, 'Mika', NULL, NULL, 'Jean', 'C', 'Malakim', 9, 'mrayan'),
-(3, 'Samuel', NULL, NULL, 'Malphas', 'D', 'Impudite', 9, 'hollowSam');
+(4, 'Ezekiel', NULL, NULL, 'Novalis', 'c', 'Seraphim', 5, 'newtest'),
+(3, 'Samuel', NULL, NULL, 'Malphas', 'D', 'Impudite', 9, 'hollowSam'),
+(6, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
+(5, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
+(7, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
+(8, 'fgdxsfgdfdgs', NULL, NULL, 'Band - Superior', 'B', 'Band - Succubus', 6, 'newtest'),
+(9, 'asfdas', NULL, NULL, 'Choir - Superior', 'B', 'Band - Succubus', 6, 'newtest');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `CharacterSheet`
+--
+CREATE TABLE IF NOT EXISTS `CharacterSheet` (
+`CharacterName` varchar(30)
+,`Dissonance` varchar(15)
+,`Discord` varchar(15)
+,`Superior` varchar(20)
+,`ChoirBandName` varchar(20)
+,`Essence` int(11)
+,`Corporeal` int(11)
+,`Strength` int(11)
+,`Agility` int(11)
+,`Ethereal` int(11)
+,`Intelligence` int(11)
+,`Prec` int(11)
+,`MindHits` int(11)
+,`Celestial` int(11)
+,`Will` int(11)
+,`Perception` int(11)
+,`SoulHits` int(11)
+);
 
 -- --------------------------------------------------------
 
@@ -209,7 +246,13 @@ CREATE TABLE IF NOT EXISTS `CorporealStats` (
 INSERT INTO `CorporealStats` (`CharacterID`, `Corporeal`, `Strength`, `Agility`) VALUES
 (1, 3, 9, 3),
 (2, 1, 3, 1),
-(3, 6, 6, 3);
+(4, 2, 1, 1),
+(3, 6, 6, 3),
+(7, 10, 4, 4),
+(6, 10, 4, 4),
+(5, 10, 4, 4),
+(8, 10, 4, 4),
+(9, 7, 2, 2);
 
 -- --------------------------------------------------------
 
@@ -222,17 +265,49 @@ CREATE TABLE IF NOT EXISTS `EtherealStats` (
   `Ethereal` int(11) NOT NULL,
   `Intelligence` int(11) NOT NULL,
   `Prec` int(11) NOT NULL,
-  `SoulHits` int(11) NOT NULL
+  `MindHits` int(11) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `EtherealStats`
 --
 
-INSERT INTO `EtherealStats` (`CharacterID`, `Ethereal`, `Intelligence`, `Prec`, `SoulHits`) VALUES
+INSERT INTO `EtherealStats` (`CharacterID`, `Ethereal`, `Intelligence`, `Prec`, `MindHits`) VALUES
 (1, 2, 5, 3, 10),
 (2, 5, 11, 9, 55),
-(3, 6, 6, 18, 3);
+(4, 3, 1, 1, 1),
+(3, 6, 6, 18, 3),
+(7, 10, 3, 3, 0),
+(6, 10, 3, 3, 0),
+(5, 10, 3, 3, 0),
+(8, 10, 3, 3, 0),
+(9, 5, 2, 2, 0);
+
+--
+-- Triggers `EtherealStats`
+--
+DELIMITER $$
+CREATE TRIGGER `setMindHits` BEFORE INSERT ON `EtherealStats`
+ FOR EACH ROW BEGIN
+SET new.MindHits = (new.Intelligence * new.Ethereal);
+END
+$$
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `GMSheet`
+--
+CREATE TABLE IF NOT EXISTS `GMSheet` (
+`CampaignID` int(11)
+,`CharacterID` int(11)
+,`CurrentMindHits` int(11)
+,`CurrentSoulHits` int(11)
+,`CharacterName` varchar(30)
+,`Dissonance` varchar(15)
+,`Discord` varchar(15)
+);
 
 -- --------------------------------------------------------
 
@@ -265,6 +340,16 @@ CREATE TABLE IF NOT EXISTS `loginAttempts` (
   `Username` varchar(12) COLLATE utf8_unicode_ci NOT NULL,
   `time` varchar(30) COLLATE utf8_unicode_ci NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `loginAttempts`
+--
+
+INSERT INTO `loginAttempts` (`Username`, `time`) VALUES
+('testuser', '1481244609'),
+('testuser', '1481247789'),
+('newtest', '1481258740'),
+('mrayan', '1481265810');
 
 -- --------------------------------------------------------
 
@@ -300,7 +385,8 @@ INSERT INTO `OwnedSkills` (`RanksTaken`, `CharacterID`, `SkillName`) VALUES
 (1, 2, 'Ranged Weapon'),
 (1, 2, 'Singing'),
 (1, 2, 'Small Weapon'),
-(1, 2, 'Throwing');
+(1, 2, 'Throwing'),
+(1, 4, 'Singing');
 
 -- --------------------------------------------------------
 
@@ -327,7 +413,9 @@ INSERT INTO `OwnedSongs` (`CharacterID`, `SongName`, `SongForce`, `RanksTaken`) 
 (2, 'Healing', 'Coporeal', 3),
 (2, 'Healing', 'Ethereal', 1),
 (2, 'Healing', 'Celestial', 1),
-(3, 'Thunder', 'Coporeal', 1);
+(3, 'Thunder', 'Coporeal', 1),
+(4, 'Healing', 'Ethereal', 1),
+(4, 'Attraction', 'Corporeal', 1);
 
 -- --------------------------------------------------------
 
@@ -397,7 +485,7 @@ CREATE TABLE IF NOT EXISTS `Songs` (
 --
 
 INSERT INTO `Songs` (`SongName`, `SongForce`, `EssenceReq`, `Duration`, `ShortDescription`, `LongDescription`) VALUES
-('Attraction', 'Coporeal', 1, '(Hours+Skill)*Essence', 'Attune two objects to one another', '"The Corporeal Song of Attraction is designed to attune items to each other. Once attuned, each “tugs” gently in the direction of the other. A Perception roll, plus the check digit of the successful performance roll, must he made to correctly determine the direction of the object’s tugging.\r\nThis Song cannot he performed on living beings – only on objects. Both objects must he in physical contact with the performer’s vessel when the Songs effects are activated. If one object is destroyed, the effects of this Song end."'),
+('Attraction', 'Corporeal', 1, '(Hours+Skill)*Essence', 'Attune two objects to one another', '"The Corporeal Song of Attraction is designed to attune items to each other. Once attuned, each “tugs” gently in the direction of the other. A Perception roll, plus the check digit of the successful performance roll, must he made to correctly determine the direction of the object’s tugging.\r\nThis Song cannot he performed on living beings – only on objects. Both objects must he in physical contact with the performer’s vessel when the Songs effects are activated. If one object is destroyed, the effects of this Song end."'),
 ('Attraction', 'Ethereal', 1, '(Hours+Skill)*Essence', 'Make victim attracted to person/object of choice', '"The Ethereal Song of Attraction makes its victim madly, passionately attracted to any person or object of the performer’s choosing. The object of attraction must be within eyesight of the performer, and the target must be within a number of feet equal to the performer’s Ethereal Forces. The target may resist with a Will roll. If he fails to resist, he’ll feel compelled to possess and protect the object of his desire, and to stay in its presence, for the length of the Songs duration.\r\nIn a combat situation, the victim will defend himself normally, but must make a Will roll, minus the check digit of the Song’s performance roll, when forced to choose between self-preservation and protecting the object of his desire."'),
 ('Attraction', 'Celestial', 1, '(Hours+Skill)*Essence', 'Divine location of attuned object', 'Placeholder');
 
@@ -418,7 +506,10 @@ CREATE TABLE IF NOT EXISTS `Users` (
 --
 
 INSERT INTO `Users` (`Username`, `UserPassword`, `Email`) VALUES
-('fletcal', 'PASSWORD', 'caleb.fletcher@NOEMAIL.com');
+('fletcal', 'PASSWORD', 'caleb.fletcher@NOEMAIL.com'),
+('mrayan', '51ff4147a152e44fe667a21e10b914475ecd28c73ff6bc37b7629037154bfc10152777322002846b8efbe998aef15017523e7dc5577a01a3a2fb5adf2277a495', 'bomberm@oregonstate.edu'),
+('testuser', '$2y$10$0Q9v/AXl.LxCzOYZdKQd1OaH9ml8vBQzgIEjic73Q3shM7o4m2gcK', 'potato@potato.fake'),
+('newtest', '84f17e93dde35157f85e4904490872837de18f78abf6cb7c20a0ea39f252aac61513f42276c4f5649806be621a6346c10d5500dc5cdc827e438595ad23e5ac05', 'fake@fake.potato');
 
 -- --------------------------------------------------------
 
@@ -432,7 +523,7 @@ CREATE TABLE IF NOT EXISTS `Vessels` (
   `VesselName` varchar(15) NOT NULL,
   `Role` varchar(20) DEFAULT NULL,
   `HitPoints` int(11) NOT NULL
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `Vessels`
@@ -440,7 +531,26 @@ CREATE TABLE IF NOT EXISTS `Vessels` (
 
 INSERT INTO `Vessels` (`VesselID`, `CharacterID`, `VesselName`, `Role`, `HitPoints`) VALUES
 (1, 2, 'Michelle', 'Grad Student', 18),
-(2, 3, 'Marcus', 'Student', 18);
+(2, 3, 'Marcus', 'Student', 18),
+(3, 4, 'Miriam', 'Chef', 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `CharacterSheet`
+--
+DROP TABLE IF EXISTS `CharacterSheet`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`turnip`@`localhost` SQL SECURITY DEFINER VIEW `CharacterSheet` AS select `C`.`CharacterName` AS `CharacterName`,`C`.`Dissonance` AS `Dissonance`,`C`.`Discord` AS `Discord`,`C`.`Superior` AS `Superior`,`C`.`ChoirBandName` AS `ChoirBandName`,`C`.`Essence` AS `Essence`,`O`.`Corporeal` AS `Corporeal`,`O`.`Strength` AS `Strength`,`O`.`Agility` AS `Agility`,`E`.`Ethereal` AS `Ethereal`,`E`.`Intelligence` AS `Intelligence`,`E`.`Prec` AS `Prec`,`E`.`MindHits` AS `MindHits`,`L`.`Celestial` AS `Celestial`,`L`.`Will` AS `Will`,`L`.`Perception` AS `Perception`,`L`.`SoulHits` AS `SoulHits` from (((`Characters` `C` join `CorporealStats` `O` on((`C`.`CharacterID` = `O`.`CharacterID`))) join `EtherealStats` `E` on((`C`.`CharacterID` = `E`.`CharacterID`))) join `CelestialStats` `L` on((`C`.`CharacterID` = `L`.`CharacterID`))) where 1;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `GMSheet`
+--
+DROP TABLE IF EXISTS `GMSheet`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`turnip`@`localhost` SQL SECURITY DEFINER VIEW `GMSheet` AS select `C`.`CampaignID` AS `CampaignID`,`C`.`CharacterID` AS `CharacterID`,`C`.`CurrentMindHits` AS `CurrentMindHits`,`C`.`CurrentSoulHits` AS `CurrentSoulHits`,`A`.`CharacterName` AS `CharacterName`,`A`.`Dissonance` AS `Dissonance`,`A`.`Discord` AS `Discord` from (`CharacterCampaignParticipation` `C` join `Characters` `A` on((`A`.`CharacterID` = `C`.`CharacterID`))) where 1;
 
 --
 -- Indexes for dumped tables
@@ -538,12 +648,12 @@ ALTER TABLE `Vessels`
 -- AUTO_INCREMENT for table `Campaigns`
 --
 ALTER TABLE `Campaigns`
-  MODIFY `CampaignID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `CampaignID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `Characters`
 --
 ALTER TABLE `Characters`
-  MODIFY `CharacterID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `CharacterID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `Items`
 --
@@ -553,7 +663,7 @@ ALTER TABLE `Items`
 -- AUTO_INCREMENT for table `Vessels`
 --
 ALTER TABLE `Vessels`
-  MODIFY `VesselID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+  MODIFY `VesselID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
