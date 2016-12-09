@@ -57,13 +57,13 @@ function login($un, $password, $mysqli) {
 		// echo "Passed Password: $password <br>";
 		// echo "Databa Password: $db_password";	                
 		if ($password == $db_password) {
-                    // Password is correct!
-                    // Get the user-agent string of the user.
-                    $user_browser = $_SERVER['HTTP_USER_AGENT'];
-                    // XSS protection as we might print this value
-                    $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
-                    // XSS protection as we might print this value
-                    $_SESSION['username'] = $db_un;
+			// Password is correct!
+            // Get the user-agent string of the user.
+            $user_browser = $_SERVER['HTTP_USER_AGENT'];
+            // XSS protection as we might print this value
+            $db_un = preg_replace("/[^a-zA-Z0-9_\-]+/", "", $db_un);
+            // XSS protection as we might print this value
+            $_SESSION['username'] = $db_un;
 		    $_SESSION['loggedIn']="true";
 					// echo($db_un);
 					// echo $_SESSION['username'];
@@ -75,8 +75,7 @@ function login($un, $password, $mysqli) {
                     // We record this attempt in the database
 					#echo("Password incorrect.");
                     $now = time();
-                    $mysqli->query("INSERT INTO loginAttempts(Username, time)
-                                    VALUES ('$un', '$now')");
+                    $mysqli->query("INSERT INTO loginAttempts(Username, time) VALUES ('$un', '$now')");
                     $_SESSION['loggedIn']="false";
 		    return false;
                 }

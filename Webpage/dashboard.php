@@ -19,11 +19,12 @@ include_once 'includes/functions.php';
 		<link rel="stylesheet" href="styles/main.css" />
     </head>
     <body>
-        <?php  
-    	if($_SESSION['loggedIn']=="true") : 
-        $user = htmlentities($_SESSION['username']);  
-  		?>w
 		<a href="logout.php">Logout?</a>
+		<?php
+		if($_SESSION['loggedIn']=="true") : 
+			$user = $_SESSION['username'];
+		echo("Logged in as: $user");
+		?>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -36,22 +37,34 @@ include_once 'includes/functions.php';
 					<div class="row">
 						<div class="col-md-6">
 							<?php
+							/*if($_SESSION['loggedIn']=="true") : 
+								$user = $_SESSION['username'];*/
 							$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = $user";
-							$result = mysqli_query($mysqli, $query);
-							$numPCamps = mysqli_fetch_row($result);
-							?>
-							<div class='row'> <div class='col-md-6'>
-							<?php
-							foreach ($numQCamps as $curRow){
-								echo "<span width=100>";
-								echo "$curRow";
-								#parse so that we can get campName and campID
-								echo "<button type='button' id='btnGoToDash'>Open</button>";
-								echo "</span>";
+							/*if(mysqli_connect_errno()){
+								printf("Connection failed: %s\n", mysqli_connect_error());
+								exit();
+							}*/
+							$result = mysqli_query($mysqli, $playerQuery);
+							if($result === FALSE){
+								echo("<p>You have no characters.</p>");
 							}
-						
-							mysqli_free_result($result);
+							else {
+								$fields_num = mysqli_num_fields($result);
+								echo("<div class='row'> <div class='col-md-6'>");
+								while($row = mysqli_fetch_row($result)) {
+									echo("<span width=100>");
+									for($i=0; $i<$fields_num; $i++)	{
+										$field = mysqli_fetch_field($result);	
+										echo "{$field->name}: $row[i]";
+										echo "<button type='button' id='btnGoToCamp'>Open</button>";
+									}
+									echo("</span");
+								}
+								mysqli_free_result($result);
+								echo("/div");
+							}
 							?>
+							<p><a href=".\charactercreate.php">Join a campaign</a></p>
 						</div>
 					</div>
 				</div>
@@ -61,18 +74,28 @@ include_once 'includes/functions.php';
 						<div class="col-md-6">
 							<?php
 							$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = $user";
-							$result = mysqli_query($credentials, $query);
-							$numQCamps = mysqli_fetch_row($result);
-						
-							echo "<div class='row'> <div class='col-md-6'>";
-							foreach ($numQCamps as $curRow){
-								echo "<span width=100>";
-								echo "$curRow";
-								echo "</span>";
+							$result = mysqli_query($mysqli, $gmQuery);
+							echo($result);
+							if($result === FALSE){
+								echo("<p>You have no campaigns.</p>");
 							}
-						
-							mysqli_free_result($result);
+							else {
+								$fields_num = mysqli_num_fields($result);
+								echo("<div class='row'> <div class='col-md-6'>");
+								while($row = mysqli_fetch_row($result)) {
+									echo("<span width=100>");
+									for($i=0; $i<$fields_num; $i++)	{
+										$field = mysqli_fetch_field($result);	
+										echo "{$field->name}: $row[i]";
+										echo "<button type='button' id='btnGoToCamp'>Open</button>";
+									}
+									echo("</span");
+								}
+								mysqli_free_result($result);
+								echo("/div");
+							}
 							?>
+							<p><a href=".\managecampaign.php">Create a campaign</a></p>
 						</div>
 					</div>
 				</div>

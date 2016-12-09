@@ -77,6 +77,7 @@ include_once 'includes/functions.php';
 						<input type="button" value="Login" onclick="formhash(this.form.username, this.form.password, form);"></input>
 					</form>
 					<!--<button type="button" onclick="createAccount()" name="btnCreateAccount">CreateAccount</button> -->
+					<p>If you don't have a login, please <a href='register.php'>register</a></p>
 				</span>
 				<span class="alert alert-warning" id="loginerrormsg">
 				</span>
