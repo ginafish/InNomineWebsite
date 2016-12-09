@@ -43,9 +43,7 @@ session_start(); ?>
 			
 			
 			<div class="row">
-				<form class="form-horizontal">
-					
-					
+				<form class="form-horizontal">			
 					<div class="row">
 						<div class="form-group col-md-5">
 							<label class="control-label" for="campName">Campaign Name</label>
@@ -82,8 +80,12 @@ session_start(); ?>
 						
 						<br />
 						<div class="pull-right">
-							<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Info</button>
-						</div>
+							<?php if($_SESSION['campaignID']!=NULL) { ?>
+							<button type="update" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
+							<?php } else { ?>
+							<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
+							<?php } ?>
+					</div>
 						
 					</div>
 					
