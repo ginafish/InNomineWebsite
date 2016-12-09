@@ -4,6 +4,7 @@ include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
  ?>
 
+<!DOCTYPE html>
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>

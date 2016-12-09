@@ -112,7 +112,10 @@ include_once 'includes/functions.php';
 						mysqli_free_result($result);
 					}
 					?>
-					<p><a href=".\charactercreate.php">Join a campaign</a></p>
+					<form action=".\charactercreate.php">
+						<input type="submit" value="Join a new campaign: ">
+						<input type="number" name="campJoinID">
+					</form>
 				</div>
 				<div class="col-md-6">
 					<h3>GM Campaigns</h3>

@@ -1,13 +1,11 @@
 <?php
-// Include database connection and functions here.  See 3.1. 
 session_start(); 
-if(login_check($mysqli) == true) {
-        // Add your protected page content here!
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
 ?>
 
+<!DOCTYPE html>
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -39,10 +37,16 @@ if(login_check($mysqli) == true) {
 	<body>
 		<div class="container">
 			
-			<form action="charcreate.php" class="form-horizontal">
+			<form action="scripts/charcreate.php" class="form-horizontal">
+				<?php
+				echo "<input type='text' name='newCampID' value='" . $_POST['campJoinID'] . "' hidden>";
+				?>
 				<div class="row">
 					<div class="col-md-12">
 						<h1>Character Sheet</h1>
+						<span class="pull-right">
+							<a href="dashboard.php">Back to dashboard.</a>
+						</span>
 					</div>
 				</div>
 				
@@ -95,21 +99,21 @@ if(login_check($mysqli) == true) {
 					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label" for="corppoints">Corporeal Force</label>
-							<input class="form-control" type="range" name="corppoints" min="0" max="">
+							<input class="form-control" type="range" name="corppoints" min="0" max="20">
 						</div>
 					</div>
 					
 					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label" for="ethpoints">Ethereal Force</label>
-							<input class="form-control" type="range" name="ethpoints" min="0" max="">
+							<input class="form-control" type="range" name="ethpoints" min="0" max="20">
 						</div>
 					</div>
 					
 					<div class="col-md-4">
 						<div class="form-group">
 							<label class="control-label" for="celpoints">Celestial Force</label>
-							<input class="form-control" type="range" name="celespoints" min="0" max="">
+							<input class="form-control" type="range" name="celespoints" min="0" max="20">
 						</div>
 					</div>
 					
@@ -155,9 +159,9 @@ if(login_check($mysqli) == true) {
 				<br /> <br />
 				
 				<!-- Skills and Songs -->
-				<div class="row">
+				<!-- <div class="row">
 					
-					<!-- For this, I'm guessing that we'll have a textbox for searching, add to add to the box below, so going to make that a multiselect drop box-->
+					<!-- For this, I'm guessing that we'll have a textbox for searching, add to add to the box below, so going to make that a multiselect drop box
 					<div class="col-md-5">
 						<div class="form-group">
 							<label class="control-label sr-only" for="addskill">Add Skill</label>
@@ -189,10 +193,10 @@ if(login_check($mysqli) == true) {
 						</div>
 					</div>
 					
-				</div>
+				</div>-->
 				
 				<!-- Vessels -->
-				<div class="row">
+				<!--<div class="row">
 					<div class="col-md-11">
 						<fieldset class="form-inline">
 							<div class="form-group col-md-5">
@@ -222,7 +226,7 @@ if(login_check($mysqli) == true) {
 							</select>
 							<button onclick="remoVesFrLi()" name="btnRemovVes">Remove</button>
 						</div>
-					</div>
+					</div>-->
 					
 					<div class="col-md-1">
 						<button type="submit" value="CreateCharacter" class="btn btn-default">Finish and create character</button>

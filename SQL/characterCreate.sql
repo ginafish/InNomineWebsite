@@ -1,5 +1,5 @@
-INSERT INTO Characters
-VALUES ($characterName, $dissonance, $discord, $superior, $choirBandMem, $essence, $user);
+INSERT INTO Characters (CharacterID, CharacterName, Superior, ChoirBandMembership, ChoirBandName, Essence, OwnerUsername)
+VALUES ($charID, $characterName, $superior, $choirBandMem, $cbName, $essence, $user);
 
 /*make this some kind of trigger or something to store CharacterID in a variable, since CharacterID is an autogennumthing???*/
 
@@ -10,7 +10,7 @@ INSERT INTO CelestialStats
 VALUES ($characterID, $will, $perc, $soulhp, $celes);
 
 INSERT INTO EtherealStats
-VALUES ($characterID, $int, $prec, $mindhp, $eth);
+VALUES ($characterID, $intel, $prec, $mindhp, $eth);
 
 INSERT INTO Vessels
 VALUES ($characterID, $vesselName, $vesselRole, $hitPoints);
