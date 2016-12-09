@@ -37,9 +37,9 @@ include_once 'includes/functions.php';
 	<body>
 		<div class="container">
 			
-			<form action="scripts/charcreate.php" class="form-horizontal">
+			<form action="scripts/createChar.php" class="form-horizontal" method="post">
 				<?php
-				echo "<input type='text' name='newCampID' value='" . $_POST['campJoinID'] . "' hidden>";
+				echo "<input type='number' name='newCampID' value='" . $_SESSION['campJoinID'] . "' hidden>";
 				?>
 				<div class="row">
 					<div class="col-md-12">
@@ -55,7 +55,7 @@ include_once 'includes/functions.php';
 					<div class="col-md-3">
 						<div class="form-group form-group-lg">
 							<label class="control-label" for="charName">Character Name</label>
-							<input type="text" class="form-control" id="charname" required="required">
+							<input type="text" name="charName" class="form-control" id="charName" required="required">
 						</div>
 					</div>
 					
@@ -63,8 +63,8 @@ include_once 'includes/functions.php';
 						<div class="form-group form-group-lg">
 							<select class="form-control" name="bandchoir" id="bandchoir" required="required" onchange="updateRace(this.value)">
 								<option selected="selected" disabled="disabled" value="prompt" hidden>Choose band or choir</option>
-								<option value="Band">Band</option>
-								<option value="Choir">Choir</option>
+								<option value="B">Band</option>
+								<option value="C">Choir</option>
 							</select>
 						</div>
 					</div>
