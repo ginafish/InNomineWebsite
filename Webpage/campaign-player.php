@@ -18,6 +18,18 @@ include_once 'includes/functions.php';
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
+		
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+			}
+			#playernotes {
+				width: 100%;
+				height: 60vh;
+			}
+		</style>
+		
     </head>
 	
     <body>
@@ -130,7 +142,7 @@ include_once 'includes/functions.php';
 					</span> -->
 					
 					<span>
-						<textarea>Notes</textarea>
+						<textarea id="playernotes">Notes</textarea>
 					</span>
 				</div>
 				<div class="col-md-4">
