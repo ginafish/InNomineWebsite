@@ -30,6 +30,7 @@ include_once 'includes/functions.php';
 		if($_SESSION['loggedIn']=="true") : 
 			$user = $_SESSION['username'];
 		echo("Logged in as: $user");
+		$_SESSION['CampaignID'] = NULL;
 		?>
 		<div class="container">
 			<div class="row">

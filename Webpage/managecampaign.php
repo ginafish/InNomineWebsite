@@ -33,11 +33,13 @@ session_start(); ?>
 			
 			<div class="row">
 				<div class="col-md-12">
-			<?php if($_SESSION['campaignId']!= NULL){?>
-				<h2>Manage Campaign</h2>
-			<?php } else { ?>
-				<h2>Create Campaign</h2>
-			<?php } ?>
+			<?php
+			if($_SESSION['campaignId']!= NULL){
+				echo("<h2>Manage Campaign</h2>");
+			} else {
+				echo("<h2>Create Campaign</h2>");
+			}
+			?>
 				</div>
 			</div>
 			
@@ -51,7 +53,7 @@ session_start(); ?>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="form-group col-md-5">
-							<label class="control-label" for="campPass">Campaign Password (leave blank if want no password)</label>
+							<label class="control-label" for="campPass">Campaign Password (leave blank if you want no password)</label>
 							<input type="text" name="campPass" class="form-control">
 						</div>
 					</div>
@@ -80,11 +82,13 @@ session_start(); ?>
 						
 						<br />
 						<div class="pull-right">
-							<?php if($_SESSION['campaignID']!=NULL) { ?>
-							<button type="update" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
-							<?php } else { ?>
-							<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
-							<?php } ?>
+							<?php 
+							if($_SESSION['campaignID']!=NULL) {
+								echo('<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>');
+							} else {
+								echo('<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button>');
+							}
+							?>
 					</div>
 						
 					</div>
