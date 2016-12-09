@@ -1,7 +1,7 @@
 <?php
 // Include database connection and functions here.  See 3.1. 
 session_start();
-echo "Character ID: ".$S_SESSION['CharacterID'];
+echo "Character ID: " . $_POST['CharacterID'];
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
@@ -27,7 +27,7 @@ include_once 'includes/functions.php';
 			}
 			#playernotes {
 				width: 100%;
-				height: 60vh;
+				height: 40vh;
 			}
 		</style>
 		
@@ -39,8 +39,11 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-12">
 					<?php
-					$campID = $_SESSION["CampaignID"];
-					$user = $_SESSION["Username"];
+	$_SESSION['CampaignID'] = $_POST["CampaignID"];				
+	$campID = $_SESSION["CampaignID"];
+					$user = $_POST["OwnerUsername"];
+	$_SESSION['User'] = $user;
+	$charID = $_POST['CharacterID'];
 						echo"<h3>Player Campaign View</h3>";
 					?>
 				</div>
@@ -61,17 +64,18 @@ include_once 'includes/functions.php';
 					$chrWill = "";
 					$chrPerc = "";
 					$chrEss = "";
-					$chrDataQuer = "SELECT CharacterID, CharacterName, Dissonance, Discord, Superior, ChoirBandMembership, Essence FROM Characters WHERE Username =" . $user . "AND CharacterID IN (SELECT CharacterID FROM CharacterCampaignParticipation WHERE CampaignID =" . $campID . ")";
+	
+					$chrDataQuer = 'SELECT CharacterID, CharacterName, Superior, ChoirBandMembership, Essence FROM Characters WHERE Username = "' . $user . '" AND CharacterID IN (SELECT CharacterID FROM CharacterCampaignParticipation WHERE CampaignID = "' . $campID . '")';
 					echo $chrDataQuer . "<br />";
 					$chrDatresult = mysqli_query($mysqli, $chrDataQuer);
 					$fields_num = mysqli_num_fields($chrDatresult);
 						while($row = mysqli_fetch_array($chrDatresult)) {
-							for($i=0; $i<$fields_num; $i++)  { 
+							/*for($i=0; $i<$fields_num; $i++)  { 
 								$field = mysqli_fetch_field($chrDatresult);
 								echo "{$field->name}: "; 
 								echo($row[$field->name]); 
-								echo('<hr />');
-              				}
+								echo('<br />');
+              				}*/
 							$charName = $row['CharacterName'];
 							$charSuperior = $row['Superior'];
 							$choirBandMem = $row['ChoirBandMembership'];
@@ -82,12 +86,12 @@ include_once 'includes/functions.php';
 					$chrCelStatRes = mysqli_query($mysqli, $chrCelStatQuer);
 					$fields_num = mysqli_num_fields($chrCelStatRes);
 						while($row = mysqli_fetch_array($chrCelStatRes)) {
-							for($i=0; $i<$fields_num; $i++)  { 
+							/*for($i=0; $i<$fields_num; $i++)  { 
 								$field = mysqli_fetch_field($chrCelStatRes);
 								echo "{$field->name}: "; 
 								echo($row[$field->name]); 
 								echo('<hr />');
-              				}
+              				}*/
 							$chrCel = $row['Celestial'];
 							$chrWill = $row['Will'];
 							$chrPerc = $row['Perception'];
@@ -97,12 +101,12 @@ include_once 'includes/functions.php';
 					$chrCorpStatRes = mysqli_query($mysqli, $chrCorpStatQuer);
 					$fields_num = mysqli_num_fields($chrCorpStatRes);
 						while($row = mysqli_fetch_array($chrCorpStatRes)) {
-							for($i=0; $i<$fields_num; $i++)  { 
+							/*for($i=0; $i<$fields_num; $i++)  { 
 								$field = mysqli_fetch_field($chrCorpStatRes);
 								echo "{$field->name}: "; 
 								echo($row[$field->name]); 
 								echo('<hr />');
-              				}
+              				}*/
 							$chrCorp = $row['Corporeal'];
 							$chrStr = $row['Strength'];
 							$chrAgi = $row['Agility'];
@@ -110,37 +114,26 @@ include_once 'includes/functions.php';
 					
 					$chrEthStatQuer = "SELECT Ethereal, Intelligence, Prec, SoulHits FROM EtherealStats WHERE CharacterID = " . $charID;
 					$chrEthStatRes = mysqli_query($mysqli, $chrEthStatQuer);
-					$fields_num = mysqli_num_fields($chrCorpStatRes);
-						while($row = mysqli_fetch_array($chrCorpStatRes)) {
-							for($i=0; $i<$fields_num; $i++)  { 
-								$field = mysqli_fetch_field($chrCorpStatRes);
+					$fields_num = mysqli_num_fields($chrEthStatRes);
+						while($row = mysqli_fetch_array($chrEthStatRes)) {
+							/*for($i=0; $i<$fields_num; $i++)  { 
+								$field = mysqli_fetch_field($chrEthStatRes);
 								echo "{$field->name}: "; 
 								echo($row[$field->name]); 
 								echo('<hr />');
-              				}
+              				}*/
 							$chrEth = $row['Ethereal'];
 							$chrInt = $row['Intelligence'];
 							$chrPrec = $row['Prec'];
 						}
 					
-					
+	
+					echo("<hr />");
+	
 					$charDataElem = "<span><p>Name: " . $charName . "</p><p>Archangel/Demon Prince: " . $charSuperior . "</p><p>Choir/Band: " . $choirBandMem . "</p><p>Corporeal Forces: " . $chrCorp . "</p><p>Strength: " . $chrStr . "</p><p>Agility: " . $chrAgi . "</p><p>Ethereal Forces: " . $chrEth . "</p><p>Intelligence: " . $chrInt . "</p><p>Precision: " . $chrPrec . "</p><p>Celestial Forces: " . $chrCel . "</p><p>Will: " . $chrWill . "</p><p>Perception: " . $chrPerc . "</p><p>Essence: " . $chrEss . "</p></span>";
+					
+					echo($charDataElem);
 					?>
-					<!--<span>
-						<p>Name:</p>
-						<p>Archangel/Demon Prince</p>
-						<p>Choir/Band</p>
-						<p>Corporeal Forces</p>
-						<p>Str</p>
-						<p>Agi</p>
-						<p>Ethereal Forces:</p>
-						<p>Int</p>
-						<p>Precision</p>
-						<p>Celestial Forces:</p>
-						<p>Will</p>
-						<p>Perception</p>
-						<p>Essence:</p>
-					</span> -->
 					
 					<span>
 						<textarea id="playernotes">Notes</textarea>

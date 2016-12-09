@@ -58,7 +58,7 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action=".\scripts\goToPCamp.php" method="get">');
+							echo('<form action=".\campaign-player.php" method="post">');
 							
 							echo ('<input type="text" name="CampaignID" value="');
 							echo ($row['CampaignID']);
@@ -80,6 +80,11 @@ include_once 'includes/functions.php';
 							echo "Campaign Blurb: ";
 							echo($row['CampaignBlurb']);
 							echo('</input><br />');
+							
+							echo ('<input type="text" name="OwnerUsername" value="');
+							echo ($row['OwnerUsername']);
+							echo ('" hidden>');
+							echo('</input>');
 							
 							echo ('<input type="text" name="CharacterName" value="');
 							echo ($row['CharacterName']);
