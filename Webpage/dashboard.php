@@ -3,9 +3,6 @@ session_start();
 include_once 'includes/db_connect.php';
 include_once 'includes/functions.php';
 
-
-#need to add buttons to each of the results for the redirect, and to make them look nice.  At this point just want to see if they work.
-
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +13,16 @@ include_once 'includes/functions.php';
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="styles/main.css" />
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="home.css">
+		<link rel="icon" href="favicon.png">
+		<style>
+			input[type="submit"] {
+				color: black;
+			}
+		</style>
     </head>
     <body>
 		<a href="logout.php">Logout?</a>
@@ -24,6 +30,7 @@ include_once 'includes/functions.php';
 		if($_SESSION['loggedIn']=="true") : 
 			$user = $_SESSION['username'];
 		echo("Logged in as: $user");
+		$_SESSION['CampaignID'] = NULL;
 		?>
 		<div class="container">
 			<div class="row">
@@ -51,21 +58,51 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action="scripts/goToPCamp.php" method="get">');
-							for($i=0; $i<$fields_num; $i++)	{
-								$field = mysqli_fetch_field($result);	
-								echo ('<input type="text" name="');
-								echo "{$field->name}";
-								echo('" value="');
-								echo ($row[$field->name]);
-								echo ('" hidden disabled>');
-								echo "{$field->name}: ";
-								echo($row[$field->name]);
-								echo('</input><br />');
-							}
-							echo "<input type='submit' id='btnGoToCamp'>Open</button>";
+							echo('<form action=".\scripts\goToPCamp.php" method="get">');
+							
+							echo ('<input type="text" name="CampaignID" value="');
+							echo ($row['CampaignID']);
+							echo ('" hidden>');
+							echo "CampaignID: ";
+							echo($row['CampaignID']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignName" value="');
+							echo ($row['CampaignName']);
+							echo ('" hidden>');
+							echo "Campaign Name: ";
+							echo($row['CampaignName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignBlurb" value="');
+							echo ($row['CampaignBlurb']);
+							echo ('" hidden>');
+							echo "Campaign Blurb: ";
+							echo($row['CampaignBlurb']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CharacterName" value="');
+							echo ($row['CharacterName']);
+							echo ('" hidden>');
+							echo "Character Name: ";
+							echo($row['CharacterName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CharacterID" value="');
+							echo ($row['CharacterID']);
+							echo ('" hidden>');
+							echo('</input>');
+							
+							echo ('<input type="text" name="KickedStatus" value="');
+							echo ($row['KickedStatus']);
+							echo ('" hidden>');
+							echo('</input>');
+							
+							
+							echo "<input type='submit' id='btnGoToCamp' value='Open'></input>";
 							echo('</form>');
 							echo("</span>");
+							echo("<hr />");
 						}
 						mysqli_free_result($result);
 					}
@@ -90,21 +127,41 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action="scripts/goToGMCamp.php" method="post">');
-							for($i=0; $i<$fields_num; $i++)	{
-								$field = mysqli_fetch_field($result);	
-								echo ('<input type="text" name="');
-								echo "{$field->name}";
-								echo('" value="');
-								echo ($row[$field->name]);
-								echo ('" hidden>');
-								echo "{$field->name}: ";
-								echo($row[$field->name]);
-								echo('</input><br />');
-							}
+							echo('<form action=".\campaign-gm.php" method="post">');
+							
+							echo ('<input type="text" name="CampaignID" value="');
+							echo ($row['CampaignID']);
+							echo ('" hidden>');
+							echo "CampaignID: ";
+							echo($row['CampaignID']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignName" value="');
+							echo ($row['CampaignName']);
+							echo ('" hidden>');
+							echo "Campaign Name: ";
+							echo($row['CampaignName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignBlurb" value="');
+							echo ($row['CampaignBlurb']);
+							echo ('" hidden>');
+							echo "Campaign Blurb: ";
+							echo($row['CampaignBlurb']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="GameMasterUsername" value="');
+							echo ($row['GameMasterUsername']);
+							echo ('" hidden>');
+							echo "Game Master: ";
+							echo($row['GameMasterUsername']);
+							echo('</input><br />');
+							
+							
 							echo "<input type='submit' id='btnGoToCamp' value='Open'></input>";
 							echo('</form>');
 							echo("</span>");
+							echo("<hr />");
 						}
 						mysqli_free_result($result);
 					}

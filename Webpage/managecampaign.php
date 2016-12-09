@@ -30,15 +30,20 @@ session_start(); ?>
 
 <?php if($_SESSION['loggedIn']="true") { ?>
 		<div class="container">
-			<?php echo "Session Data: ".$_SESSION['campaignID']; ?>
+			
 			<div class="row">
 				<div class="col-md-12">
-			<?php if($_SESSION['campaignId']!= NULL){?>
-				<h2>Manage Campaign</h2>
-			<?php } else { ?>
-				<h2>Create Campaign</h2>
-			<?php } ?>
+			<?php
+			if($_SESSION['campaignId']!= NULL){
+				echo("<h2>Manage Campaign</h2>");
+			} else {
+				echo("<h2>Create Campaign</h2>");
+			}
+			?>
 				</div>
+				<span class="pull-right">
+					<a href="dashboard.php">Back to dashboard.</a>
+				</span>
 			</div>
 			
 			
@@ -51,7 +56,7 @@ session_start(); ?>
 						</div>
 						<div class="col-md-2"></div>
 						<div class="form-group col-md-5">
-							<label class="control-label" for="campPass">Campaign Password (leave blank if want no password)</label>
+							<label class="control-label" for="campPass">Campaign Password (leave blank if you want no password)</label>
 							<input type="text" name="campPass" class="form-control">
 						</div>
 					</div>
@@ -66,9 +71,9 @@ session_start(); ?>
 						
 						<div class="form-group col-md-3">
 							<label class="control-label sr-only" for="playerRestr">Player Types Restriction</label>							
-							<select class="form-control" id="playerRestr" name="playerRestr">
-								<option value="c">Angels Only</option>
-								<option value="b">Demons Only</option>
+							<select class="form-control" name="playerRestr">
+								<option value="Choir">Angels Only</option>
+								<option value="Band">Demons Only</option>
 								<option selected="selected" value="Both">Allow Both</option>
 							</select>
 						</div>
@@ -80,11 +85,13 @@ session_start(); ?>
 						
 						<br />
 						<div class="pull-right">
-							<?php if($_SESSION['campaignID']!=NULL) { ?>
-							<input type="button" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
-							<?php } else { ?>
-							<input type="button" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
-							<?php } ?>
+							<?php 
+							if($_SESSION['campaignID']!=NULL) {
+								echo('<button type="submit" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>');
+							} else {
+								echo('<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button>');
+							}
+							?>
 					</div>
 						
 					</div>

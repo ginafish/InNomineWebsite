@@ -1,28 +1,33 @@
 <?php
 // Include database connection and functions here.  See 3.1. 
-sec_session_start(); 
-if(login_check($mysqli) == true) {
-        // Add your protected page content here!
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
+session_start();
+include_once 'includes/db_connect.php';
+include_once 'includes/functions.php';
+
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
         <title>TableSpace - Dashboard</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-		<link rel="stylesheet" href="styles/main.css" />
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" type="text/css" href="home.css">
+		<link rel="icon" href="favicon.png">
     </head>
+	
     <body>
+		<?php if($_SESSION['loggedIn']=="true") { ?>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
-					<?php 
+					<?php
+					$campID = $_SESSION["CampaignID"];
+					$user = $_SESSION["Username"];
 						echo"<h3>$campaignName</h3>"
 					?>
 				</div>
@@ -30,9 +35,17 @@ if(login_check($mysqli) == true) {
 			<div class="row">
 				<div class="col=md-4">		<!-- character data -->
 					<?php 
-					$chrDataQuer = "SELECT CharacterID, CharacterName, Dissonance, Discord, Superior, ChoirBandMembership, Essence FROM Characters WHERE Username = $user AND CharacterID IN (SELECT CharacterID FROM CharacterCampaignParticipation WHERE CampaignID = $campID)";
+					$chrDataQuer = "SELECT CharacterID, CharacterName, Dissonance, Discord, Superior, ChoirBandMembership, Essence FROM Characters WHERE Username =" . $user . "AND CharacterID IN (SELECT CharacterID FROM CharacterCampaignParticipation WHERE CampaignID =" . $campID . ")";
 					$chrDatresult = mysqli_query($credentials, $chrDataQuer);
-					$chrResRows = mysqli_fetch_row($chrDatresult);
+					$fields_num = mysqli_num_fields($chrDatresult);
+						while($row = mysqli_fetch_array($chrDatresult)) {
+							for($i=0; $i<$fields_num; $i++)  { 
+								$field = mysqli_fetch_field($chrDatresult);
+								echo "{$field->name}: "; 
+								echo($row[$field->name]); 
+								echo('<hr />');
+              				}
+						}
 					
 					#need to assign results to $vars
 					
@@ -73,7 +86,7 @@ if(login_check($mysqli) == true) {
 				</div>
 				<div class="col-md-4">
 					<?php
-					?skillDataQuer = "SELECT OwnedSkills.SkillName, OwnedSkills.RanksTaken, Skills.BaseSkill, Skills.ShortDescription, Skills.LongDescription FROM OwnedSkills JOIN Skills ON OwnedSkills.SkillName = Skills.SkillName WHERE OwnedSkills.CharacterID = $charID";
+					$skillDataQuer = "SELECT OwnedSkills.SkillName, OwnedSkills.RanksTaken, Skills.BaseSkill, Skills.ShortDescription, Skills.LongDescription FROM OwnedSkills JOIN Skills ON OwnedSkills.SkillName = Skills.SkillName WHERE OwnedSkills.CharacterID = $charID";
 					$result = mysqli_query($credentials, $skillDataQuer);
 					$rows = mysqli_fetch_row($result);
 					echo "<span>$rows</span>";
@@ -90,5 +103,10 @@ if(login_check($mysqli) == true) {
 				</div>
 			</div>
 		</div>
+<?php
+} else { 
+        echo 'You have created a disturbance in the symphony, please login.';
+}
+?>	
 	</body>
 </html>
