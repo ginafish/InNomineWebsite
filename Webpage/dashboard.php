@@ -51,21 +51,51 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
-							echo('<form action="scripts/goToPCamp.php" method="get">');
-							for($i=0; $i<$fields_num; $i++)	{
-								$field = mysqli_fetch_field($result);	
-								echo ('<input type="text" name="');
-								echo "{$field->name}";
-								echo('" value="');
-								echo ($row[$field->name]);
-								echo ('" hidden disabled>');
-								echo "{$field->name}: ";
-								echo($row[$field->name]);
-								echo('</input><br />');
-							}
-							echo "<input type='submit' id='btnGoToCamp'>Open</button>";
+							echo('<form action=".\goToPCamp.php" method="get">');
+							
+							echo ('<input type="text" name="CampaignID" value="');
+							echo ($row['CampaignID']);
+							echo ('" hidden>');
+							echo "CampaignID: ";
+							echo($row['CampaignID']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignName" value="');
+							echo ($row['CampaignName']);
+							echo ('" hidden>');
+							echo "Campaign Name: ";
+							echo($row['CampaignName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignBlurb" value="');
+							echo ($row['CampaignBlurb']);
+							echo ('" hidden>');
+							echo "Campaign Blurb: ";
+							echo($row['CampaignBlurb']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CharacterName" value="');
+							echo ($row['CharacterName']);
+							echo ('" hidden>');
+							echo "Character Name: ";
+							echo($row['CharacterName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CharacterID" value="');
+							echo ($row['CharacterID']);
+							echo ('" hidden>');
+							echo('</input>');
+							
+							echo ('<input type="text" name="KickedStatus" value="');
+							echo ($row['KickedStatus']);
+							echo ('" hidden>');
+							echo('</input>');
+							
+							
+							echo "<input type='submit' id='btnGoToCamp' value='Open'></input>";
 							echo('</form>');
 							echo("</span>");
+							echo("<hr />");
 						}
 						mysqli_free_result($result);
 					}
@@ -91,20 +121,40 @@ include_once 'includes/functions.php';
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
 							echo('<form action=".\campaign-gm.php" method="post">');
-							for($i=0; $i<$fields_num; $i++)	{
-								$field = mysqli_fetch_field($result);	
-								echo ('<input type="text" name="');
-								echo "{$field->name}";
-								echo('" value="');
-								echo ($row[$field->name]);
-								echo ('" hidden>');
-								echo "{$field->name}: ";
-								echo($row[$field->name]);
-								echo('</input><br />');
-							}
+							
+							echo ('<input type="text" name="CampaignID" value="');
+							echo ($row['CampaignID']);
+							echo ('" hidden>');
+							echo "CampaignID: ";
+							echo($row['CampaignID']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignName" value="');
+							echo ($row['CampaignName']);
+							echo ('" hidden>');
+							echo "Campaign Name: ";
+							echo($row['CampaignName']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="CampaignBlurb" value="');
+							echo ($row['CampaignBlurb']);
+							echo ('" hidden>');
+							echo "Campaign Blurb: ";
+							echo($row['CampaignBlurb']);
+							echo('</input><br />');
+							
+							echo ('<input type="text" name="GameMasterUsername" value="');
+							echo ($row['GameMasterUsername']);
+							echo ('" hidden>');
+							echo "Game Master: ";
+							echo($row['GameMasterUsername']);
+							echo('</input><br />');
+							
+							
 							echo "<input type='submit' id='btnGoToCamp' value='Open'></input>";
 							echo('</form>');
 							echo("</span>");
+							echo("<hr />");
 						}
 						mysqli_free_result($result);
 					}
