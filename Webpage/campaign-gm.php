@@ -29,6 +29,11 @@ include_once 'includes/functions.php';
 				width: 100%;
 				height: 80vh;
 			}
+			body {
+				background-image: url("img/innombannur.png");
+				background-position: left bottom;
+				background-repeat: no-repeat;
+			}
 		</style>
 		
 	</head>

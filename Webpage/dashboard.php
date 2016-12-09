@@ -22,24 +22,33 @@ include_once 'includes/functions.php';
 			input[type="submit"] {
 				color: black;
 			}
+			body {
+				background-image: url("img/innomfeather.jpg");
+				background-position: right bottom;
+				background-repeat: no-repeat;
+			}
 		</style>
     </head>
     <body>
-		<a href="logout.php">Logout?</a>
-		<?php
-		if($_SESSION['loggedIn']=="true") : 
-			$user = $_SESSION['username'];
-		echo("Logged in as: $user");
-		$_SESSION['CampaignID'] = NULL;
-		?>
+		
 		<div class="container">
 			
 			<!-- header -->
+			<div class="row">
+				<img src="img/innombannur.png" />
+			</div>
 			<div class="row">
 				<div class="col-md-12">
 					<h1>Dashboard</h1>
 				</div>
 			</div>
+			<a href="logout.php">Logout?</a>
+			<?php
+			if($_SESSION['loggedIn']=="true") : 
+				$user = $_SESSION['username'];
+			echo("Logged in as: $user");
+			$_SESSION['CampaignID'] = NULL;
+			?>
 			
 			<div class="row">
 				<div class="col-md-6">
