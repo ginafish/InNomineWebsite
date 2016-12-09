@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$_SESSION['CampaignID'] = $_POST["CampaignID"];
 	if(!isset($_POST['CampaignID'])){
 		echo("I'm broken");
