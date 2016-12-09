@@ -1,11 +1,6 @@
 <?php 
 // Include database connection and functions here.  See 3.1. 
-sec_session_start(); 
-if(login_check($mysqli) == true) {
-        // Add your protected page content here!
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
+session_start(); 
 ?>
 
 
@@ -36,6 +31,7 @@ if(login_check($mysqli) == true) {
 	</head>
 	
 	<body>
+		<?php if($_SESSION['loggedIn']=="true") { ?>
 		<div class="container">
 			<div class="row">
 				<div class="col-md-12">
@@ -65,5 +61,10 @@ if(login_check($mysqli) == true) {
 				</div>
 			</div>
 		</div>
+<?php
+} else { 
+        echo 'You have created a disturbance in the symphony, please login.';
+}
+?>	
 	</body>
 </html>

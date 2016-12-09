@@ -1,13 +1,6 @@
 <?php
 // Include database connection and functions here.  See 3.1. 
-sec_session_start(); 
-if(login_check($mysqli) == true) {
-        // Add your protected page content here!
-} else { 
-        echo 'You are not authorized to access this page, please login.';
-}
-?>
-
+session_start(); ?>
 
 <html>
 	<head>
@@ -19,9 +12,11 @@ if(login_check($mysqli) == true) {
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" type="text/css" href="home.css">
 		<link rel="icon" href="favicon.png">
-		
+		<?php if($_SESSION['campaignId']!=""){?>
 		<title>Manage Campaign</title>
-		
+		<?php } else { ?>
+		<title>Create Campaign</title>
+		<?php endif; ?>
 		<style>
 			.campBlurbInp{
 				width: 100%;
@@ -32,6 +27,8 @@ if(login_check($mysqli) == true) {
 	</head>
 	
 	<body>
+
+<?php if($_SESSION['loggedIn']="true") { ?>
 		<div class="container">
 			
 			<div class="row">
@@ -66,11 +63,11 @@ if(login_check($mysqli) == true) {
 					<div class="row">
 						
 						<div class="form-group col-md-3">
-							<label class="control-label sr-only" for="playerRestr">Player Types Restriction</label>
+							<label class="control-label sr-only" for="playerRestr">Player Types Restriction</label>							
 							<select class="form-control" name="playerRestr">
-								<option selected="selected" disabled="disabled" value="prompt">Player Types</option>
-								<option value="Choir">Choir Only</option>
-								<option value="Band">Band Only</option>
+								<option value="Choir">Angels Only</option>
+								<option value="Band">Demons Only</option>
+								<option selected="selected" value="Both">Allow Both</option>
 							</select>
 						</div>
 						
@@ -105,5 +102,10 @@ if(login_check($mysqli) == true) {
 			</div>
 			
 		</div>
+<?php
+} else { 
+        echo 'You have created a disturbance in the symphony, please login.';
+}
+?>
 	</body>
 </html>
