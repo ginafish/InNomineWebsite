@@ -30,7 +30,7 @@ session_start(); ?>
 
 <?php if($_SESSION['loggedIn']="true") { ?>
 		<div class="container">
-			
+			<?php echo "Session Data: ".$_SESSION['campaignID']; ?>
 			<div class="row">
 				<div class="col-md-12">
 			<?php if($_SESSION['campaignId']!= NULL){?>
@@ -66,9 +66,9 @@ session_start(); ?>
 						
 						<div class="form-group col-md-3">
 							<label class="control-label sr-only" for="playerRestr">Player Types Restriction</label>							
-							<select class="form-control" name="playerRestr">
-								<option value="Choir">Angels Only</option>
-								<option value="Band">Demons Only</option>
+							<select class="form-control" id="playerRestr" name="playerRestr">
+								<option value="c">Angels Only</option>
+								<option value="b">Demons Only</option>
 								<option selected="selected" value="Both">Allow Both</option>
 							</select>
 						</div>
@@ -81,9 +81,9 @@ session_start(); ?>
 						<br />
 						<div class="pull-right">
 							<?php if($_SESSION['campaignID']!=NULL) { ?>
-							<button type="update" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
+							<input type="button" value="UpdCampInfo" class="btn btn-default">Update Campaign</button>
 							<?php } else { ?>
-							<button type="create" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
+							<input type="button" value="SubCampInfo" class="btn btn-default">Create Campaign</button> 
 							<?php } ?>
 					</div>
 						
