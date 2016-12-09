@@ -42,10 +42,44 @@ session_start();
 			<div class="row">
 				<div class="col-md-4">
 					<h5>Characters</h5>
-					<span id="charList"></span>		<!-- I assume let's fill this with elements on page load -->
+					<span id="charList">
+						<?php
+						echo($_SESSION['CampaignID']);
+						if(isset($_SESSION['CampaignID'])){
+							$playerListQuery = "SELECT * FROM GMSheet WHERE CampaignID = '";
+	                    	$playerListQuery .= $_SESSION['CampaignID'] . "'";
+							echo($playerListQuery);
+							$result = mysqli_query($mysqli, $playerListQuery) or die(mysqli_error($link));
+							if(mysqli_connect_errno()){
+								printf("Connection failed: %s\n", mysqli_connect_error());
+								exit();
+							}
+							if($result === FALSE){
+								echo("<p>You have no players.</p>");
+							} else {
+								$fields_num = mysqli_num_fields($result);
+								while($row = mysqli_fetch_array($result)) {
+									echo("<span width=100 style='border: 1px black'>");
+									for($i=0; $i<$fields_num; $i++)	{
+										$field = mysqli_fetch_field($result);	
+										echo "{$field->name}: ";
+										echo($row[$field->name]);
+										echo('<br />');
+									}
+									echo("</span>");
+								}
+								mysqli_free_result($result);
+							} 
+						} else {
+							echo("Choose a campaign man. Jeez.");
+						}
+						?>
+					</span>
 					<hr />
+					
+					
+					<!--  Leave this for later....
 					<h5>Campaign Tools</h5>
-					<!-- Do onchange events instead of form? -->
 					<form class="form-inline">
 						<div class="form-group">
 							<input type="text" class="form-control" id="month" width="25px">/<input type="text" class="form-control" id="day" width="25px">/<input type="text" class="form-control" id="year" width="50px">
@@ -53,6 +87,7 @@ session_start();
 						</div>
 					</form>
 					<button onclick="manageCampaign">Manage Campaign</button>
+					-->
 				</div>
 				
 				<div class="col-md-8">
