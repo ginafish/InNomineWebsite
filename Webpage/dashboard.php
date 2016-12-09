@@ -37,7 +37,7 @@ include_once 'includes/functions.php';
 					<?php
 					/*if($_SESSION['loggedIn']=="true") : 
 						$user = $_SESSION['username'];*/
-					$playerQuery = "SELECT camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = '";
+					$playerQuery = "SELECT camps.CampaignID, camps.CampaignName, camps.CampaignBlurb, charac.OwnerUsername, charac.CharacterName, charac.CharacterID, ccp.KickedStatus FROM Campaigns camps LEFT JOIN CharacterCampaignParticipation ccp ON camps.CampaignID = ccp.CampaignID JOIN Characters charac ON ccp.CharacterID = charac.CharacterID WHERE charac.OwnerUsername = '";
 					$playerQuery .= $user . "'";
 					$result = mysqli_query($mysqli, $playerQuery) or die(mysqli_error($link));
 					if(mysqli_connect_errno()){
@@ -49,16 +49,22 @@ include_once 'includes/functions.php';
 					}
 					else {
 						$fields_num = mysqli_num_fields($result);
-						echo("<div class='row'> <div class='col-md-6'>");
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
+							echo('<form action="scripts/goToPCamp.php" method="get">');
 							for($i=0; $i<$fields_num; $i++)	{
-								$field = mysqli_fetch_field($result);
+								$field = mysqli_fetch_field($result);	
+								echo ('<input type="text" name="');
+								echo "{$field->name}";
+								echo('" value="');
+								echo ($row[$field->name]);
+								echo ('" hidden disabled>');
 								echo "{$field->name}: ";
 								echo($row[$field->name]);
-								echo('<br />');
+								echo('</input><br />');
 							}
-							echo "<button type='button' id='btnGoToCamp'>Open</button>";
+							echo "<input type='submit' id='btnGoToCamp'>Open</button>";
+							echo('</form>');
 							echo("</span>");
 						}
 						mysqli_free_result($result);
@@ -69,7 +75,7 @@ include_once 'includes/functions.php';
 				<div class="col-md-6">
 					<h3>GM Campaigns</h3>
 					<?php
-					$gmQuery = "SELECT CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
+					$gmQuery = "SELECT CampaignID, CampaignName, CampaignBlurb, GameMasterUsername FROM Campaigns WHERE GameMasterUsername = '";
 					$gmQuery .= $user . "'";
 					$result = mysqli_query($mysqli, $gmQuery) or die(mysqli_error($link));
 					if(mysqli_connect_errno($mysqli)){
@@ -84,13 +90,20 @@ include_once 'includes/functions.php';
 						$fields_num = mysqli_num_fields($result);
 						while($row = mysqli_fetch_array($result)) {
 							echo("<span width=100 style='border: 1px black'>");
+							echo('<form action="scripts/goToGMCamp.php" method="get">');
 							for($i=0; $i<$fields_num; $i++)	{
 								$field = mysqli_fetch_field($result);	
+								echo ('<input type="text" name="');
+								echo "{$field->name}";
+								echo('" value="');
+								echo ($row[$field->name]);
+								echo ('" hidden disabled>');
 								echo "{$field->name}: ";
 								echo($row[$field->name]);
-								echo('<br />');
+								echo('</input><br />');
 							}
-							echo "<button type='button' id='btnGoToCamp'>Open</button>";
+							echo "<input type='submit' id='btnGoToCamp'>Open</button>";
+							echo('</form>');
 							echo("</span>");
 						}
 						mysqli_free_result($result);
