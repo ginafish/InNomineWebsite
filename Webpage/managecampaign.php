@@ -41,6 +41,9 @@ session_start(); ?>
 			}
 			?>
 				</div>
+				<span class="pull-right">
+					<a href="dashboard.php">Back to dashboard.</a>
+				</span>
 			</div>
 			
 			

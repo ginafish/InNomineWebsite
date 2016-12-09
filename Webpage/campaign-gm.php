@@ -39,9 +39,10 @@ include_once 'includes/functions.php';
 			<div class="row">
 				<div class="col-md-12">
 					<h2 id="campName">Campaign Name</h2>
-					<div class="pull-right">
+					<span class="pull-right">
+						<a href="dashboard.php">Back to dashboard.</a>
 						<a href="./managecampaign.php" style="-webkit-appearance: button; -moz-appearance: button; appearance: button; text-decoration: none; color: white; background-color: grey;" >Edit Campaign</a>
-					</div>
+					</span>
 				</div>
 			</div>
 			
